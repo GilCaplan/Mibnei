@@ -2,7 +2,7 @@ public class Rnode extends RunnerID implements Key {
     private float time;
     private int key;
 
-    public Rnode(Rnode prev, float time, int key){
+    public Rnode(float time, int key){
         this.time = time;
         this.key = key;
     }

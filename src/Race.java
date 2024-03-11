@@ -2,9 +2,9 @@
 public class Race {
     // create some sort of Tree object data structure that can support the
     // runtime of requested functions.
-    private heap<Rnode> IDheap;
-    private heap<Rnode> avgheap;
-    private heap<Rnode> minheap;
+    private heap<RunnerHeap> IDheap;
+    private heap<RunnerHeap> avgheap;
+    private heap<RunnerHeap> minheap;
     public Race(){
         init();
     }
@@ -17,12 +17,12 @@ public class Race {
     public void addRunner(RunnerID id)
     {
         if (IDheap == null || IDheap.getHeap_size() < 1) {
-            Rnode node = new Rnode(null, 100000000, Integer.parseInt(String.valueOf(id)));
+            RunnerHeap node = new RunnerHeap(Integer.parseInt(String.valueOf(id)));
             IDheap.setfirst(node);
             return;
         }
         int i = Integer.parseInt(String.valueOf(id));
-        IDheap.Heap_Insert(new Rnode(null, 100000, i));
+        IDheap.Heap_Insert(new RunnerHeap( i));
     }
 
     public void removeRunner(RunnerID id)
