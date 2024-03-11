@@ -1,7 +1,13 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 public class Race {
+    // create some sort of Tree object data structure that can support the
+    // runtime of requested functions.
     public void init()
     {
-        throw new UnsupportedOperationException("not implemented");
+        //throw new UnsupportedOperationException("not implemented");
     }
     public void addRunner(RunnerID id)
     {
