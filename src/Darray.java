@@ -10,9 +10,12 @@ public class Darray<T> {
 
 
     public void set(int index, T element) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Index out of bounds");
-        }
+        ensureCapacity();
+//        if (index < 0 || index >= size) {
+//            throw new IndexOutOfBoundsException("Index out of bounds");
+//        }
+        if (index >= size)
+            size++;
         array[index] = element;
     }
     public void add(T element) {

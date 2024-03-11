@@ -22,7 +22,7 @@ public class Race {
             return;
         }
         int i = Integer.parseInt(String.valueOf(id));
-        IDheap.Heapify(i);
+        IDheap.Heap_Insert(new Rnode(null, 100000, i));
 
     }
 

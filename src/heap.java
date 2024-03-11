@@ -3,13 +3,14 @@ public class heap<T extends Key> {
     private int heap_size;
     public heap(){
         A = new Darray<>();
+        A.add(null);
         heap_size = 0;
     }
     public void Heapify(int i){
         int l = 2 * i;
-        int smallest = (l <= this.heap_size && this.A.get(l).getKey() < this.A.get(i).getKey()) ? l : i;
+        int smallest = (l < this.heap_size && this.A.get(l).getKey() < this.A.get(i).getKey()) ? l : i;
         int r = 2*i +1;
-        if (r <= this.heap_size && A.get(r).getKey() < this.A.get(smallest).getKey() )
+        if (r < this.heap_size && A.get(r).getKey() < this.A.get(smallest).getKey() )
             smallest = r;
         if (smallest != i){
             //swap A[i] and A[smallest]
@@ -30,16 +31,16 @@ public class heap<T extends Key> {
     public T Heap_Extract_Min(){
         if(this.heap_size < 1)
             throw new IllegalStateException("The heap is empty");
-        T min = this.A.get(1);
-        this.A.set(1, this.A.get(heap_size - 1));
-        Heapify(1);
+        T min = this.A.get(0);
+        this.A.set(0, this.A.get(heap_size - 1));
+        Heapify(0);
         return min;
     }
 
     public void Heap_Decrease_Key(int i, int k){
         if(k > this.A.get(i).getKey())
             throw new IllegalStateException("new key is larger than current key");
-        this.A.get(i).setKey(k);//fix
+        this.A.get(i).setKey(k);
 
         while(i > 1 && A.get(i).getKey() < this.A.get(i/2).getKey()){
             T temp = this.A.get(i);
@@ -53,7 +54,7 @@ public class heap<T extends Key> {
         int s = this.heap_size+1;
         this.A.set(s, x);
         this.A.get(s).setKey(999999999);
-        this.heap_size = s;
+        this.heap_size = s-1;
         Heap_Decrease_Key(s, x.getKey());
     }
     public void Heap_Delete(int i){
@@ -77,7 +78,8 @@ public class heap<T extends Key> {
     }
 
     public void setfirst(T i) {
-        A.add(i);
+        this.A.add(i);
+        this.heap_size = 1;
     }
 
     public void setHeap_size(int heap_size) {
