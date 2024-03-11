@@ -23,12 +23,11 @@ public class Race {
         }
         int i = Integer.parseInt(String.valueOf(id));
         IDheap.Heap_Insert(new Rnode(null, 100000, i));
-
     }
 
     public void removeRunner(RunnerID id)
     {
-        throw new UnsupportedOperationException("not implemented");
+        IDheap.Heap_Delete(Integer.parseInt(String.valueOf(id)));
     }
 
     public void addRunToRunner(RunnerID id, float time)
