@@ -6,8 +6,8 @@ public class heap<T extends Key> {
         heap_size = 0;
     }
     public void Heapify(int i){
-        int l = 2*i;
-        int smallest = (l <= this.heap_size && this.A.get(l).getKey() < this.A.get(i).getKey())? l : i;
+        int l = 2 * i;
+        int smallest = (l <= this.heap_size && this.A.get(l).getKey() < this.A.get(i).getKey()) ? l : i;
         int r = 2*i +1;
         if (r <= this.heap_size && A.get(r).getKey() < this.A.get(smallest).getKey() )
             smallest = r;
@@ -66,5 +66,21 @@ public class heap<T extends Key> {
             throw new IllegalStateException("new key is smaller than current key");
         this.A.get(i).setKey(k);
         Heapify(i);
+    }
+
+    public Darray<T> getA() {
+        return A;
+    }
+
+    public int getHeap_size() {
+        return heap_size;
+    }
+
+    public void setfirst(T i) {
+        A.add(i);
+    }
+
+    public void setHeap_size(int heap_size) {
+        this.heap_size = heap_size;
     }
 }

@@ -15,7 +15,6 @@ public class Darray<T> {
         }
         array[index] = element;
     }
-
     public void add(T element) {
         ensureCapacity();
         array[size++] = element;

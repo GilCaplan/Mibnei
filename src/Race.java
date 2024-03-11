@@ -1,17 +1,29 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 public class Race {
     // create some sort of Tree object data structure that can support the
     // runtime of requested functions.
+    private heap<Rnode> IDheap;
+    private heap<Rnode> avgheap;
+    private heap<Rnode> minheap;
+    public Race(){
+        init();
+    }
     public void init()
     {
-        //throw new UnsupportedOperationException("not implemented");
+        IDheap = new heap<>();
+        avgheap = new heap<>();
+        minheap = new heap<>();
     }
     public void addRunner(RunnerID id)
     {
-        throw new UnsupportedOperationException("not implemented");
+        if (IDheap == null || IDheap.getHeap_size() < 1) {
+            Rnode node = new Rnode(null, 100000000, Integer.parseInt(String.valueOf(id)));
+            IDheap.setfirst(node);
+            return;
+        }
+        int i = Integer.parseInt(String.valueOf(id));
+        IDheap.Heapify(i);
+
     }
 
     public void removeRunner(RunnerID id)
