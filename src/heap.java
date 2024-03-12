@@ -6,11 +6,17 @@ public class heap<T extends Key> {
         A.add(null);
         heap_size = 0;
     }
+    //perhaps edit other functions as well?
+    //edited so it can work with a secondary key
     public void Heapify(int i){
         int l = 2 * i;
-        int smallest = (l < this.heap_size && this.A.get(l).getKey() < this.A.get(i).getKey()) ? l : i;
+        int smallest;
+        if (l < this.heap_size && ((A.get(l).getKey() == A.get(i).getKey()) && A.get(l).getSecondaryKey() <  A.get(i).getSecondaryKey() )|| (A.get(l).getKey() < A.get(i).getKey()))
+            smallest = l;
+        else
+            smallest = i;
         int r = 2*i +1;
-        if (r < this.heap_size && A.get(r).getKey() < this.A.get(smallest).getKey() )
+        if (r < this.heap_size && ((A.get(r).getKey() == this.A.get(smallest).getKey() && A.get(r).getSecondaryKey() < this.A.get(smallest).getSecondaryKey() )||(A.get(r).getKey() < this.A.get(smallest).getKey())))
             smallest = r;
         if (smallest != i){
             //swap A[i] and A[smallest]
@@ -27,6 +33,7 @@ public class heap<T extends Key> {
         for(int i=this.A.size(); i>0; i--)
             Heapify(i);
     }
+
 
     public T Heap_Extract_Min(){
         if(this.heap_size < 1)
@@ -67,10 +74,6 @@ public class heap<T extends Key> {
             throw new IllegalStateException("new key is smaller than current key");
         this.A.get(i).setKey(k);
         Heapify(i);
-    }
-
-    public Darray<T> getA() {
-        return A;
     }
 
     public int getHeap_size() {

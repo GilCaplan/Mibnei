@@ -1,10 +1,17 @@
 public class Rnode extends RunnerID implements Key {
     private float time;
     private int key;
+    private int skey;
 
     public Rnode(float time, int key){
         this.time = time;
         this.key = key;
+        this.skey = 0;
+    }
+    public Rnode(float time, int key, int skey){
+        this.time = time;
+        this.key = key;
+        this.skey = skey;
     }
 
     @Override
@@ -20,6 +27,10 @@ public class Rnode extends RunnerID implements Key {
     @Override
     public int getKey() {
         return this.key;
+    }
+    @Override
+    public int getSecondaryKey() {
+        return this.skey;
     }
 
     @Override

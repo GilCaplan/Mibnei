@@ -21,4 +21,9 @@ public class RunnerHeap implements Key {
     public void setKey(int k) {
         this.runnerID = k;
     }
+
+    @Override
+    public int getSecondaryKey() {
+        return 0;
+    }
 }

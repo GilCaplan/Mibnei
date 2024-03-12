@@ -22,7 +22,7 @@ public class Race {
             return;
         }
         int i = Integer.parseInt(String.valueOf(id));
-        IDheap.Heap_Insert(new RunnerHeap( i));
+        IDheap.Heap_Insert(new RunnerHeap(i));
     }
 
     public void removeRunner(RunnerID id)
@@ -32,7 +32,10 @@ public class Race {
 
     public void addRunToRunner(RunnerID id, float time)
     {
-        throw new UnsupportedOperationException("not implemented");
+        if (IDheap == null || IDheap.getHeap_size() < 1) {
+            throw new IllegalArgumentException("runner doesn't exist");
+        }
+
     }
 
     public void removeRunFromRunner(RunnerID id, float time)
