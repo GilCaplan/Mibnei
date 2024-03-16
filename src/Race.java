@@ -3,6 +3,7 @@ public class Race {
     // create some sort of Tree object data structure that can support the
     // runtime of requested functions.
     private heap<RunnerHeap> IDheap;
+    private twothreeTree IDtree;
     private heap<RunnerHeap> avgheap;
     private heap<RunnerHeap> minheap;
     public Race(){
@@ -10,32 +11,26 @@ public class Race {
     }
     public void init()
     {
-        IDheap = new heap<>();
-        avgheap = new heap<>();
-        minheap = new heap<>();
+//        IDheap = new heap<>();
+          IDtree = new twothreeTree();
+//        avgheap = new heap<>();
+//        minheap = new heap<>();
     }
     public void addRunner(RunnerID id)
     {
-        if (IDheap == null || IDheap.getHeap_size() < 1) {
-            RunnerHeap node = new RunnerHeap(Integer.parseInt(String.valueOf(id)));
-            IDheap.setfirst(node);
-            return;
-        }
         int i = Integer.parseInt(String.valueOf(id));
-        IDheap.Heap_Insert(new RunnerHeap(i));
+        RunnerTree runner = new RunnerTree(i);
     }
 
     public void removeRunner(RunnerID id)
     {
-        IDheap.Heap_Delete(Integer.parseInt(String.valueOf(id)));
+
     }
 
     public void addRunToRunner(RunnerID id, float time)
     {
-        if (IDheap == null || IDheap.getHeap_size() < 1) {
-            throw new IllegalArgumentException("runner doesn't exist");
-        }
-
+        RunnerTree Runner = (RunnerTree) ;
+        Runner
     }
 
     public void removeRunFromRunner(RunnerID id, float time)
