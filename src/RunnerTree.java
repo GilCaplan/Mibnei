@@ -1,9 +1,7 @@
 public class RunnerTree extends twothreeTree {
     //left to do, implement extra attributes to root that saves min, avg run of runner
-    private node root;
     public RunnerTree(int i){
-        super.Init();
-        this.Insert(new node(i));
+        super.Init(i);
     }
     public int rank(node x){
         int rank = 1;

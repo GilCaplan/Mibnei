@@ -1,11 +1,12 @@
-public class twothreeTree{
-    private node root;
+public class twothreeTree extends node{
+    protected node root;
     public twothreeTree(){
-        Init();
+        super(0);
+        Init(0);
     }
 
-    public void Init(){
-        this.root = new node(999999999);
+    public void Init(int i){
+        this.root = new node(999999999, i);
 
         // sentinel nodes
         node l =new node(-999999999);

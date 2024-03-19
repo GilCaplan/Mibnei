@@ -4,6 +4,7 @@ public class node extends RunnerID implements Key{
     private node middle;
     private node right;
     private int key;
+    private int id;
     private int size=0;
 
     public void setP(node p) {
@@ -32,10 +33,6 @@ public class node extends RunnerID implements Key{
 
     private int skey;
 
-    public node() {
-
-    }
-
     public void setp(node p) {
         this.p = p;
     }
@@ -48,6 +45,7 @@ public class node extends RunnerID implements Key{
         this.key = key;
         this.skey = 0;
     }
+
 
     public node(int key, int skey) {
         this.left = null;

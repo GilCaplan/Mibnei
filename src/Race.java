@@ -2,10 +2,8 @@
 public class Race {
     // create some sort of Tree object data structure that can support the
     // runtime of requested functions.
-    private heap<RunnerHeap> IDheap;
     private twothreeTree IDtree;
-    private heap<RunnerHeap> avgheap;
-    private heap<RunnerHeap> minheap;
+
     public Race(){
         init();
     }
@@ -20,6 +18,7 @@ public class Race {
     {
         int i = Integer.parseInt(String.valueOf(id));
         RunnerTree runner = new RunnerTree(i);
+        IDtree.Insert(runner);
     }
 
     public void removeRunner(RunnerID id)
@@ -29,8 +28,8 @@ public class Race {
 
     public void addRunToRunner(RunnerID id, float time)
     {
-        RunnerTree Runner = (RunnerTree) ;
-        Runner
+        IDtree.Search(null, Integer.parseInt(String.valueOf(id)));
+//        Runner
     }
 
     public void removeRunFromRunner(RunnerID id, float time)
