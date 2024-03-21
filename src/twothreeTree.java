@@ -1,16 +1,15 @@
-public class twothreeTree extends node{
-    protected node root;
+public class twothreeTree<T>{
+    protected node<T> root;
     public twothreeTree(){
-        super(0);
-        Init(0);
+        Init();
     }
 
-    public void Init(int i){
-        this.root = new node(999999999, i);
+    public void Init(){
+        this.root = new node<>((T) new Sentinal());
 
-        // sentinel nodes
-        node l =new node(-999999999);
-        node m = new node(999999999);
+        // sentinel node<T>s
+        node<T> l =new node<>((T)new Sentinal());
+        node<T> m = new node<>((T) new Sentinal());
 
         l.setp(root);
         m.setp(root);
@@ -19,35 +18,34 @@ public class twothreeTree extends node{
         root.setMiddle(m);
     }
 
-    public node Search(node x, int k){
+    public node<T> Search(node<T> x, T k) throws CastingException {
         if(this.root.getLeft().getLeft() == null && this.root.getRight().getLeft() == null)//sentinel
             return this.root;
-        if(k < 0)
-            return null;
+
         x = this.root;
-        if (x.getLeft() == null && x.getKey() == k)// checking if x is a leaf
+        if (x.getLeft() == null && x.getKey().equals(k))// checking if x is a leaf
             return x;
         if(x.getLeft() == null) return null;
-        if(k <= x.getLeft().getKey())
+        if(((RunnerID)k).isSmaller((RunnerID)(x.getLeft()).getKey()))
             return Search(x.getLeft(), k);
-        if(k<= x.getMiddle().getKey())
+        if(((RunnerID) k).isSmaller((RunnerID) (x.getMiddle().getKey())))
             return Search(x.getMiddle(), k);
         return Search(x.getRight(), k);
     }
 
-    public node Minimum(){
-        node x = this.root;
+    public node<T> Minimum(){
+        node<T> x = this.root;
         while(x.getLeft() != null)//x is not a leaf
             x = x.getLeft();
         x = x.getp().getMiddle();
-        if(x.getKey() != 999999999)
+        if(!(x.getKey() instanceof Sentinal))
             return x;
         throw new IllegalArgumentException("T is empty");
     }
 
-    public node Successor(node x){
-        node z = x.getp();
-        node y;
+    public node<T> Successor(node<T> x){
+        node<T> z = x.getp();
+        node<T> y;
         while(x == x.getRight() || (z.getRight() == null && x == z.getMiddle())){
             x = z;
             z = z.getp();
@@ -58,12 +56,12 @@ public class twothreeTree extends node{
             y = z.getRight();
         while(y.getLeft() != null)//y is not a leaf
             y = y.getLeft();
-        if(y.getKey() < 999999999)
+        if(((RunnerID)y.getKey()).isSmaller(new Sentinal()))
             return y;
         return null;
     }
 
-    public void Update_Key(node x){
+    public void Update_Key(node<T> x){
         x.setKey(x.getLeft().getKey());
         if(x.getMiddle() != null)
             x.setKey(x.getMiddle().getKey());
@@ -71,7 +69,7 @@ public class twothreeTree extends node{
             x.setKey(x.getRight().getKey());
     }
 
-    public void Set_Children(node x, node l, node m, node r){
+    public void Set_Children(node<T> x, node<T> l, node<T> m, node<T> r){
         x.setLeft(l);
         x.setMiddle(m);
         x.setRight(r);
@@ -83,29 +81,29 @@ public class twothreeTree extends node{
         Update_Key(x);
     }
 
-    public node Insert_And_Split(node x, node z){
-        node l = x.getLeft();
-        node m = x.getMiddle();
-        node r = x.getRight();
+    public node<T> Insert_And_Split(node<T> x, node<T> z) throws CastingException {
+        node<T> l = x.getLeft();
+        node<T> m = x.getMiddle();
+        node<T> r = x.getRight();
         if(r == null){
-            if(z.getKey() < l.getKey())
+            if(((RunnerID)z.getKey()).isSmaller((RunnerID)l.getKey()))
                 Set_Children(x, z, l, m);
-            else if(z.getKey() < m.getKey())
+            else if(((RunnerID)z.getKey()).isSmaller((RunnerID)m.getKey()))
                 Set_Children(x, l,z, m);
             else
                 Set_Children(x, l, m, z);
             return null;
         }
-        node y = new node(m.getKey());//check
-        if(z.getKey() < l.getKey()){
+        node<T> y = new node<T>(m.getKey());//check
+        if(((RunnerID)z.getKey()).isSmaller((RunnerID)l.getKey())){
             Set_Children(x, z, l, null);
             Set_Children(y, m, r, null);
         }
-        else if(z.getKey() < m.getKey()){
+        else if(((RunnerID)z.getKey()).isSmaller((RunnerID)m.getKey())){
             Set_Children(x, l, z, null);
             Set_Children(y, m, r, null);
         }
-        else if(z.getKey() < r.getKey()){
+        else if(((RunnerID)z.getKey()).isSmaller((RunnerID)r.getKey())){
             Set_Children(x, l, m, null);
             Set_Children(y, z, r, null);
         }
@@ -113,28 +111,30 @@ public class twothreeTree extends node{
         return y;
     }
 
-    public void Insert(node z){
-        node y = this.root;
+    public void Insert(node<T> z) throws CastingException {
+        node<T> y = this.root;
         while(y.getLeft() != null) {//y is not a leaf
-            if (z.getKey() < y.getLeft().getKey()) y = y.getLeft();
-            else if(z.getKey() < y.getMiddle().getKey()) y =y.getMiddle();
+            if (((RunnerID)z.getKey()).isSmaller((RunnerID) y.getLeft().getKey()))
+                y = y.getLeft();
+            else if(((RunnerID)z.getKey()).isSmaller((RunnerID)y.getMiddle().getKey()))
+                    y = y.getMiddle();
             else y = y.getRight();
         }
-        node x = y.getp();
+        node<T> x = y.getp();
         if (z != null)
             z = Insert_And_Split(x, z);
         else Update_Key(x);
         if(z != null){
-            node w = new node(z.getKey());//check
+            node<T> w = new node<T>(z.getKey());//check
             Set_Children(w, x, z, null);
             this.root = w;
         }
     }
 
-    public node Borrow_Or_Merge(node y){
-        node z = y.getp();
+    public node<T> Borrow_Or_Merge(node<T> y){
+        node<T> z = y.getp();
         if(y == z.getLeft()){
-            node x = z.getMiddle();
+            node<T> x = z.getMiddle();
             if(x.getRight() != null){
                 Set_Children(y, y.getLeft(), x.getLeft(), null);
                 Set_Children(x, x.getMiddle(), x.getRight(), null);
@@ -147,33 +147,33 @@ public class twothreeTree extends node{
             return z;
         }
         if(y == z.getMiddle()){
-            node x = z.getLeft();
+            node<T> x = z.getLeft();
             if(x.getRight() != null){
                 Set_Children(y, x.getRight(), y.getLeft(), null);
                 Set_Children(x, x.getLeft(), x.getMiddle(), null);
             }
             else{
                 Set_Children(x, x.getLeft(), x.getMiddle(), y.getLeft());
-                //delete node y?
+                //delete node<T> y?
                 Set_Children(z, x, z.getRight(), null);
                 return z;
             }
         }
-        node x = z.getMiddle();
+        node<T> x = z.getMiddle();
         if(x.getRight() != null){
             Set_Children(y, x.getRight(), y.getLeft(), null);
             Set_Children(x, x.getLeft(), x.getMiddle(), null);
         }
         else{
             Set_Children(x, x.getLeft(), x.getMiddle(), y.getLeft());
-            //delete node y?
+            //delete node<T> y?
             Set_Children(z, z.getLeft(), x, null);
         }
         return z;
     }
 
-    public void Delete(node x){
-        node y = x.getp();
+    public void Delete(node<T> x){
+        node<T> y = x.getp();
         if( x == y.getLeft())
             Set_Children(y, y.getMiddle(), y.getRight(), null);
         else if(x == y.getMiddle()){
@@ -181,7 +181,7 @@ public class twothreeTree extends node{
         }
         else {
             Set_Children(y, y.getLeft(), y.getMiddle(), null);
-            //delete node x?
+            //delete node<T> x?
         }
         while(y != null){
             if(y.getMiddle() == null){
@@ -201,3 +201,4 @@ public class twothreeTree extends node{
         }
     }
 }
+

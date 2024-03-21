@@ -1,7 +1,12 @@
-public class RunnerTree extends twothreeTree {
+public class RunnerTree<T> extends twothreeTree<T> {
+    private final RunnerID Treekey;
     //left to do, implement extra attributes to root that saves min, avg run of runner
-    public RunnerTree(int i){
-        super.Init(i);
+    public RunnerTree(RunnerID i){
+        super.Init();
+        this.Treekey = i;
+    }
+    public RunnerID getTKey(){
+        return this.Treekey;
     }
     public int rank(node x){
         int rank = 1;

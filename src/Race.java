@@ -16,8 +16,7 @@ public class Race {
     }
     public void addRunner(RunnerID id)
     {
-        int i = Integer.parseInt(String.valueOf(id));
-        RunnerTree runner = new RunnerTree(i);
+        node runner = new RunnerTree(id);
         IDtree.Insert(runner);
     }
 

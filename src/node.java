@@ -1,13 +1,14 @@
-public class node extends RunnerID implements Key{
-    private node p;
-    private node left;
-    private node middle;
-    private node right;
-    private int key;
-    private int id;
+public class node<T> implements Key<T>{
+    private node<T> p;
+    private node<T> left;
+    private node<T> middle;
+    private node<T> right;
+    private T key;
+    private float skey;
+    private T id;
     private int size=0;
 
-    public void setP(node p) {
+    public void setP(node<T> p) {
         this.p = p;
     }
 
@@ -15,11 +16,11 @@ public class node extends RunnerID implements Key{
         this.size = size;
     }
 
-    public void setSkey(int skey) {
+    public void setSkey(float skey) {
         this.skey = skey;
     }
 
-    public node getP() {
+    public node<T> getP() {
         return p;
     }
 
@@ -27,27 +28,26 @@ public class node extends RunnerID implements Key{
         return size;
     }
 
-    public int getSkey() {
-        return skey;
+    public float getSkey() {
+        return this.skey;
     }
 
-    private int skey;
 
-    public void setp(node p) {
+    public void setp(node<T> p) {
         this.p = p;
     }
 
-    public node(int key) {
+    public node(T key) {
         this.left = null;
         this.middle = null;
         this.p = null;
         this.right = null;
         this.key = key;
-        this.skey = 0;
+        this.skey = (float) 0.0;
     }
 
 
-    public node(int key, int skey) {
+    public node(T key, float skey) {
         this.left = null;
         this.middle = null;
         this.p = null;
@@ -57,36 +57,49 @@ public class node extends RunnerID implements Key{
     }
 
 
-    public void setLeft(node left) {
+    public void setLeft(node<T> left) {
         this.left = left;
     }
 
-    public void setMiddle(node middle) {
+    public void setMiddle(node<T> middle) {
         this.middle = middle;
     }
 
-    public void setRight(node right) {
+    public void setRight(node<T> right) {
         this.right = right;
     }
 
-    public node getp() {
+    public node<T> getp() {
         return p;
     }
 
-    public node getLeft() {
+    public node<T> getLeft() {
         return left;
     }
-    public node getMiddle() {
+    public node<T> getMiddle() {
         return middle;
     }
 
-    public node getRight() {
+    public node<T> getRight() {
         return right;
     }
 
-    @Override
-    public boolean isSmaller(RunnerID other) {
-        return this.key < ((Rnode)other).getKey();
+    public boolean isSmaller(RunnerID other) throws CastingException {
+        try{
+            return ((RunnerID)(this.key)).isSmaller(other);
+        }
+        catch (ClassCastException e){
+            throw new CastingException("failed to cast to RunnerID in this case");
+        }
+    }
+
+    public boolean equals(RunnerID other) throws CastingException{
+        try{
+            return !((RunnerID)(this.key)).isSmaller(other) && !(other).isSmaller((RunnerID)this.key);
+        }
+        catch (ClassCastException e){
+            throw new CastingException("failed to cast to RunnerID in this case");
+        }
     }
 
     @Override
@@ -95,16 +108,22 @@ public class node extends RunnerID implements Key{
     }
 
     @Override
-    public int getKey() {
+    public T getKey() {
         return this.key;
     }
     @Override
-    public int getSecondaryKey() {
+    public float getSecondaryKey() {
         return this.skey;
     }
 
     @Override
-    public void setKey(int k) {
+    public boolean isSmaller(T other) {
+        return false;
+    }
+
+    @Override
+    public void setKey(T k) {
         this.key = k;
     }
 }
+
