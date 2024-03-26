@@ -1,12 +1,27 @@
-public class RunnerTree<T> extends twothreeTree<T> {
-    private final RunnerID Treekey;
-    //left to do, implement extra attributes to root that saves min, avg run of runner
+public class RunnerTree<T> extends leaf<T> {
+    private node<RunnerID> Treekey;
+    //left to do, implement extra attributes to Treekey that saves min, avg run of runner
     public RunnerTree(RunnerID i){
-        super.Init();
-        this.Treekey = i;
+        super((T) i);
+        this.Treekey = new internalNode<>(i);
     }
+
+    public void Init(){
+        this.Treekey = new internalNode<>(new Sentinal());
+
+        // sentinel node<T>s
+        node<T> l =new internalNode<>((T)new Sentinal());
+        node<T> m = new internalNode<>((T) new Sentinal());
+
+        l.setp((node<T>) Treekey);
+        m.setp((node<T>) Treekey);
+
+        Treekey.setLeft((node<RunnerID>) l);
+        Treekey.setMiddle((node<RunnerID>) m);
+    }
+    
     public RunnerID getTKey(){
-        return this.Treekey;
+        return this.Treekey.getKey();
     }
     public int rank(node x){
         int rank = 1;
@@ -22,13 +37,12 @@ public class RunnerTree<T> extends twothreeTree<T> {
         return rank;
     }
 
-    @Override
     public void Insert(node z){
-        node y = this.root;
+        node y = this.Treekey;
         z.setSize(1);
         while(y.getLeft() != null) {//y is not a leaf
-            if (z.getKey() < y.getLeft().getKey()) y = y.getLeft();
-            else if(z.getKey() < y.getMiddle().getKey()) y =y.getMiddle();
+            if ((float) z.getKey() < (float)y.getLeft().getKey()) y = y.getLeft();
+            else if((float)z.getKey() < (float)y.getMiddle().getKey()) y =y.getMiddle();
             else y = y.getRight();
         }
         node x = y.getp();
@@ -36,13 +50,12 @@ public class RunnerTree<T> extends twothreeTree<T> {
             z = Insert_And_Split(x, z);
         else Update_Key(x);
         if(z != null){
-            node w = new node(z.getKey());//check
+            node w = new internalNode(z.getKey());//check
             Set_Children(w, x, z, null);
-            this.root = w;
+            this.Treekey = w;
         }
     }
 
-    @Override
     public node Insert_And_Split(node x, node z){
         node l = x.getLeft();
         node m = x.getMiddle();
@@ -51,15 +64,15 @@ public class RunnerTree<T> extends twothreeTree<T> {
             x.setSize(x.getSize() + 1);
 
         if(r == null){
-            if(z.getKey() < l.getKey())
+            if((float)z.getKey() < (float)l.getKey())
                 Set_Children(x, z, l, m);
-            else if(z.getKey() < m.getKey())
+            else if((float)z.getKey() < (float)m.getKey())
                 Set_Children(x, l,z, m);
             else
                 Set_Children(x, l, m, z);
             return null;
         }
-        node y = new node(m.getKey());//check
+        node y = new internalNode(m.getKey());//check
         if(x.getLeft() == null)
             y.setSize(1);
         else if (x.getMiddle() == null)
@@ -69,25 +82,24 @@ public class RunnerTree<T> extends twothreeTree<T> {
         else
             y.setSize(1 + x.getMiddle().getSize() + x.getLeft().getSize() + x.getRight().getSize());
 
-        if(z.getKey() < l.getKey()){
+        if((float)z.getKey() < (float)l.getKey()){
             Set_Children(x, z, l, null);
             Set_Children(y, m, r, null);
         }
-        else if(z.getKey() < m.getKey()){
+        else if((float)z.getKey() < (float)m.getKey()){
             Set_Children(x, l, z, null);
             Set_Children(y, m, r, null);
         }
-        else if(z.getKey() < r.getKey()){
+        else if((float)z.getKey() < (float)r.getKey()){
             Set_Children(x, l, m, null);
             Set_Children(y, z, r, null);
         }
         else Set_Children(y, r, z, null);
         return y;
-        //if a new root needs to be added then update its size value (sum of childrens size attribute)
+        //if a new Treekey needs to be added then update its size value (sum of childrens size attribute)
         //need to implement?
     }
 
-    @Override
     public void Delete(node x) {
         node y = x.getp();
         if( x == y.getLeft())
@@ -106,10 +118,10 @@ public class RunnerTree<T> extends twothreeTree<T> {
         //delete node x?
         while(y != null){
             if(y.getMiddle() == null){
-                if(y != this.root)
+                if(y != this.Treekey)
                     y = Borrow_Or_Merge(y);
                 else {
-                    this.root = y.getLeft();
+                    this.Treekey = y.getLeft();
                     y.getLeft().setp(null);
                     //delete y?
                     return;
@@ -122,7 +134,6 @@ public class RunnerTree<T> extends twothreeTree<T> {
         }
     }
 
-    @Override
     public node Borrow_Or_Merge(node y){
         node z = y.getp();
         if(y == z.getLeft()){
@@ -180,5 +191,25 @@ public class RunnerTree<T> extends twothreeTree<T> {
             z.setSize(z.getLeft().getSize() + x.getSize());
         }
         return z;
+    }
+
+    public void Update_Key(node<T> x){
+        x.setKey(x.getLeft().getKey());
+        if(x.getMiddle() != null)
+            x.setKey(x.getMiddle().getKey());
+        if(x.getRight() != null)
+            x.setKey(x.getRight().getKey());
+    }
+
+    public void Set_Children(node<T> x, node<T> l, node<T> m, node<T> r){
+        x.setLeft(l);
+        x.setMiddle(m);
+        x.setRight(r);
+
+        if(m != null)
+            m.setp(x);
+        if(r != null)
+            r.setp(x);
+        Update_Key(x);
     }
 }

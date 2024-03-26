@@ -1,4 +1,4 @@
-public class node<T> implements Key<T>{
+public abstract class node<T> implements Key<T>{
     private node<T> p;
     private node<T> left;
     private node<T> middle;
@@ -84,28 +84,6 @@ public class node<T> implements Key<T>{
         return right;
     }
 
-    public boolean isSmaller(RunnerID other) throws CastingException {
-        try{
-            return ((RunnerID)(this.key)).isSmaller(other);
-        }
-        catch (ClassCastException e){
-            throw new CastingException("failed to cast to RunnerID in this case");
-        }
-    }
-
-    public boolean equals(RunnerID other) throws CastingException{
-        try{
-            return !((RunnerID)(this.key)).isSmaller(other) && !(other).isSmaller((RunnerID)this.key);
-        }
-        catch (ClassCastException e){
-            throw new CastingException("failed to cast to RunnerID in this case");
-        }
-    }
-
-    @Override
-    public String toString() {
-        return String.valueOf(key);
-    }
 
     @Override
     public T getKey() {

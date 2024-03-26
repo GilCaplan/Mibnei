@@ -1,15 +1,15 @@
-public class twothreeTree<T>{
+public abstract class twothreeTree<T> {
     protected node<T> root;
     public twothreeTree(){
         Init();
     }
 
     public void Init(){
-        this.root = new node<>((T) new Sentinal());
+        this.root = new internalNode<>((T) new Sentinal());
 
         // sentinel node<T>s
-        node<T> l =new node<>((T)new Sentinal());
-        node<T> m = new node<>((T) new Sentinal());
+        node<T> l =new internalNode<>((T)new Sentinal());
+        node<T> m = new internalNode<>((T) new Sentinal());
 
         l.setp(root);
         m.setp(root);
@@ -18,24 +18,24 @@ public class twothreeTree<T>{
         root.setMiddle(m);
     }
 
-    public node<T> Search(node<T> x, T k) throws CastingException {
+    public node<T> Search(node<T> x, node<T> k)  {
         if(this.root.getLeft().getLeft() == null && this.root.getRight().getLeft() == null)//sentinel
             return this.root;
 
         x = this.root;
-        if (x.getLeft() == null && x.getKey().equals(k))// checking if x is a leaf
+        if ((x.getLeft() instanceof leaf) && x.getKey().equals(k))// checking if x is a leaf
             return x;
         if(x.getLeft() == null) return null;
-        if(((RunnerID)k).isSmaller((RunnerID)(x.getLeft()).getKey()))
+        if(k.isSmaller((x.getLeft()).getKey()))
             return Search(x.getLeft(), k);
-        if(((RunnerID) k).isSmaller((RunnerID) (x.getMiddle().getKey())))
+        if(k.isSmaller( (x.getMiddle().getKey())))
             return Search(x.getMiddle(), k);
         return Search(x.getRight(), k);
     }
 
     public node<T> Minimum(){
         node<T> x = this.root;
-        while(x.getLeft() != null)//x is not a leaf
+        while(!(x.getLeft() instanceof leaf))//x is not a leaf
             x = x.getLeft();
         x = x.getp().getMiddle();
         if(!(x.getKey() instanceof Sentinal))
@@ -54,10 +54,10 @@ public class twothreeTree<T>{
             y = z.getMiddle();
         else
             y = z.getRight();
-        while(y.getLeft() != null)//y is not a leaf
+        while(!(y.getLeft() instanceof leaf))//y is not a leaf
             y = y.getLeft();
-        if(((RunnerID)y.getKey()).isSmaller(new Sentinal()))
-            return y;
+        //if(y.isSmaller(new Sentinal()))
+        //    return y;
         return null;
     }
 
@@ -86,24 +86,24 @@ public class twothreeTree<T>{
         node<T> m = x.getMiddle();
         node<T> r = x.getRight();
         if(r == null){
-            if(((RunnerID)z.getKey()).isSmaller((RunnerID)l.getKey()))
+            if(z.isSmaller(l.getKey()))
                 Set_Children(x, z, l, m);
-            else if(((RunnerID)z.getKey()).isSmaller((RunnerID)m.getKey()))
+            else if(z.isSmaller(m.getKey()))
                 Set_Children(x, l,z, m);
             else
                 Set_Children(x, l, m, z);
             return null;
         }
-        node<T> y = new node<T>(m.getKey());//check
-        if(((RunnerID)z.getKey()).isSmaller((RunnerID)l.getKey())){
+        node<T> y = new internalNode<>(m.getKey());//check
+        if(z.isSmaller(l.getKey())){
             Set_Children(x, z, l, null);
             Set_Children(y, m, r, null);
         }
-        else if(((RunnerID)z.getKey()).isSmaller((RunnerID)m.getKey())){
+        else if(z.isSmaller(m.getKey())){
             Set_Children(x, l, z, null);
             Set_Children(y, m, r, null);
         }
-        else if(((RunnerID)z.getKey()).isSmaller((RunnerID)r.getKey())){
+        else if(z.isSmaller(r.getKey())){
             Set_Children(x, l, m, null);
             Set_Children(y, z, r, null);
         }
@@ -113,10 +113,10 @@ public class twothreeTree<T>{
 
     public void Insert(node<T> z) throws CastingException {
         node<T> y = this.root;
-        while(y.getLeft() != null) {//y is not a leaf
-            if (((RunnerID)z.getKey()).isSmaller((RunnerID) y.getLeft().getKey()))
+        while(!(y.getLeft() instanceof leaf)) {//y is not a leaf
+            if (z.isSmaller( y.getLeft().getKey()))
                 y = y.getLeft();
-            else if(((RunnerID)z.getKey()).isSmaller((RunnerID)y.getMiddle().getKey()))
+            else if(z.isSmaller(y.getMiddle().getKey()))
                     y = y.getMiddle();
             else y = y.getRight();
         }
@@ -125,7 +125,7 @@ public class twothreeTree<T>{
             z = Insert_And_Split(x, z);
         else Update_Key(x);
         if(z != null){
-            node<T> w = new node<T>(z.getKey());//check
+            node<T> w = new internalNode<>(z.getKey());//check
             Set_Children(w, x, z, null);
             this.root = w;
         }

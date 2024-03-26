@@ -14,8 +14,7 @@ public class Race {
 //        avgheap = new heap<>();
 //        minheap = new heap<>();
     }
-    public void addRunner(RunnerID id)
-    {
+    public void addRunner(RunnerID id) throws CastingException {
         node runner = new RunnerTree(id);
         IDtree.Insert(runner);
     }
@@ -25,9 +24,8 @@ public class Race {
 
     }
 
-    public void addRunToRunner(RunnerID id, float time)
-    {
-        IDtree.Search(null, Integer.parseInt(String.valueOf(id)));
+    public void addRunToRunner(RunnerID id, float time) throws CastingException {
+        IDtree.Search(null, null);
 //        Runner
     }
 
