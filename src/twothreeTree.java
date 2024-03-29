@@ -56,7 +56,7 @@ public abstract class twothreeTree<T> {
         Update_Key(x);
     }
 
-    public node<T> Insert_And_Split(node<T> x, node<T> z) throws CastingException {
+    public node<T> Insert_And_Split(node<T> x, node<T> z) {
         node<T> l = x.getLeft();
         node<T> m = x.getMiddle();
         node<T> r = x.getRight();
@@ -64,7 +64,7 @@ public abstract class twothreeTree<T> {
             if(z.isSmaller(l.getKey()))
                 Set_Children(x, z, l, m);
             else if(z.isSmaller(m.getKey()))
-                Set_Children(x, l,z, m);
+                Set_Children(x, l, z, m);
             else
                 Set_Children(x, l, m, z);
             return null;
@@ -82,7 +82,10 @@ public abstract class twothreeTree<T> {
             Set_Children(x, l, m, null);
             Set_Children(y, z, r, null);
         }
-        else Set_Children(y, r, z, null);
+        else {
+            Set_Children(x, l, m, null);
+            Set_Children(y, r, z, null);
+        }
         return y;
     }
 
