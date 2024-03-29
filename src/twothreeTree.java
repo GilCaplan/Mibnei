@@ -89,9 +89,9 @@ public abstract class twothreeTree<T> {
         return y;
     }
 
-    public void Insert(node<T> z) throws CastingException {
+    public void Insert(node<T> z) {
         node<T> y = this.root;
-        while(!(y.getKey() instanceof leaf) && (!(y.getKey() instanceof Sentinal) || y.getLeft() != null)) {//y is not a leaf
+        while((!(y.getKey() instanceof leaf) || !(y instanceof leaf)) && y.getLeft() != null) {//y is not a leaf
             if (z.isSmaller(y.getLeft().getKey()) || (y.getLeft().getKey()).toString().equals("s+"))
                 y = y.getLeft();
             else if(z.isSmaller(y.getMiddle().getKey()) || (y.getMiddle().getKey()).toString().equals("s+"))

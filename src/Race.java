@@ -13,9 +13,8 @@ public class Race {
 //        avgheap = new heap<>();
 //        minheap = new heap<>();
     }
-    public void addRunner(RunnerID id) throws CastingException {
-        node runner = new RunnerTree(id);
-        IDtree.Insert(runner);
+    public void addRunner(RunnerID id)  {
+        IDtree.Insert(new RunnerTree<>(id));
     }
 
     public void removeRunner(RunnerID id)
