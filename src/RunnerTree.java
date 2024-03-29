@@ -7,11 +7,9 @@ public class RunnerTree<T> extends leaf<T> {
     }
 
     public void Init(){
-        this.Treekey = new internalNode<>(new Sentinal());
-
         // sentinel node<T>s
-        node<T> l =new internalNode<>((T)new Sentinal());
-        node<T> m = new internalNode<>((T) new Sentinal());
+        node<T> l =new internalNode<>((T)new Sentinal("-inf"));
+        node<T> m = new internalNode<>((T) new Sentinal("inf"));
 
         l.setp((node<T>) Treekey);
         m.setp((node<T>) Treekey);

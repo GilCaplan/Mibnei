@@ -1,13 +1,16 @@
 public class Sentinal extends RunnerID{
+    private boolean flag;
+    public Sentinal(String flag){
+        this.flag = !flag.equals("inf");
+    }
 
-
-    @Override
     public boolean isSmaller(RunnerID other) {
-        return true;
+        return this.flag;
     }
 
     @Override
     public String toString() {
-        return null;
+        String type = !this.flag? "+":"-";
+        return "s"+type;
     }
 }

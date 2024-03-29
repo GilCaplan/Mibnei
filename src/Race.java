@@ -4,13 +4,12 @@ public class Race {
     // runtime of requested functions.
     private twothreeTree IDtree;
 
-    public Race(){
+    public Race() throws CastingException {
         init();
     }
-    public void init()
-    {
+    public void init() throws CastingException {
 //        IDheap = new heap<>();
-          IDtree = new twothreeTree();
+          IDtree = new IDtree<RunnerID>();
 //        avgheap = new heap<>();
 //        minheap = new heap<>();
     }

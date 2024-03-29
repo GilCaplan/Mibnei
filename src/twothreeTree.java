@@ -5,27 +5,29 @@ public abstract class twothreeTree<T> {
     }
 
     public void Init(){
-        this.root = new internalNode<>((T) new Sentinal());
+        internalNode<T> x = new internalNode<>(null);
 
         // sentinel node<T>s
-        node<T> l =new internalNode<>((T)new Sentinal());
-        node<T> m = new internalNode<>((T) new Sentinal());
+        node<T> l = new internalNode<>((T)new Sentinal("-inf"));
+        node<T> m = new internalNode<>((T) new Sentinal("inf"));
 
-        l.setp(root);
-        m.setp(root);
+        l.setp(x);
+        m.setp(x);
 
-        root.setLeft(l);
-        root.setMiddle(m);
+        x.setKey((T) new Sentinal("inf"));
+        x.setLeft(l);
+        x.setMiddle(m);
+        this.root = x;
+
+        printTree();
     }
 
     public node<T> Search(node<T> x, node<T> k)  {
-        if(this.root.getLeft().getLeft() == null && this.root.getRight().getLeft() == null)//sentinel
-            return this.root;
-
-        x = this.root;
-        if ((x.getLeft() instanceof leaf) && x.getKey().equals(k))// checking if x is a leaf
-            return x;
-        if(x.getLeft() == null) return null;
+        if(x instanceof leaf<T>) {
+            if(x.getKey() == k)
+                return this.root;
+            else return null;
+        }
         if(k.isSmaller((x.getLeft()).getKey()))
             return Search(x.getLeft(), k);
         if(k.isSmaller( (x.getMiddle().getKey())))
@@ -33,33 +35,6 @@ public abstract class twothreeTree<T> {
         return Search(x.getRight(), k);
     }
 
-    public node<T> Minimum(){
-        node<T> x = this.root;
-        while(!(x.getLeft() instanceof leaf))//x is not a leaf
-            x = x.getLeft();
-        x = x.getp().getMiddle();
-        if(!(x.getKey() instanceof Sentinal))
-            return x;
-        throw new IllegalArgumentException("T is empty");
-    }
-
-    public node<T> Successor(node<T> x){
-        node<T> z = x.getp();
-        node<T> y;
-        while(x == x.getRight() || (z.getRight() == null && x == z.getMiddle())){
-            x = z;
-            z = z.getp();
-        }
-        if(x == z.getLeft())
-            y = z.getMiddle();
-        else
-            y = z.getRight();
-        while(!(y.getLeft() instanceof leaf))//y is not a leaf
-            y = y.getLeft();
-        //if(y.isSmaller(new Sentinal()))
-        //    return y;
-        return null;
-    }
 
     public void Update_Key(node<T> x){
         x.setKey(x.getLeft().getKey());
@@ -113,22 +88,27 @@ public abstract class twothreeTree<T> {
 
     public void Insert(node<T> z) throws CastingException {
         node<T> y = this.root;
-        while(!(y.getLeft() instanceof leaf)) {//y is not a leaf
-            if (z.isSmaller( y.getLeft().getKey()))
+        while(!(y.getKey() instanceof leaf) && (!(y.getKey() instanceof Sentinal) || y.getLeft() != null)) {//y is not a leaf
+            if (z.isSmaller(y.getLeft().getKey()) || (y.getLeft().getKey()).toString().equals("s+"))
                 y = y.getLeft();
-            else if(z.isSmaller(y.getMiddle().getKey()))
+            else if(z.isSmaller(y.getMiddle().getKey()) || (y.getMiddle().getKey()).toString().equals("s+"))
                     y = y.getMiddle();
             else y = y.getRight();
         }
         node<T> x = y.getp();
-        if (z != null)
-            z = Insert_And_Split(x, z);
-        else Update_Key(x);
+        z = Insert_And_Split(x, z);
+        while(!x.equals(this.root)){
+            x = x.getp();
+            if(z != null)
+                z = Insert_And_Split(x, z);
+            else Update_Key(x);
+        }
         if(z != null){
-            node<T> w = new internalNode<>(z.getKey());//check
+            node<T> w = new internalNode<>(null);//check
             Set_Children(w, x, z, null);
             this.root = w;
         }
+        printTree();
     }
 
     public node<T> Borrow_Or_Merge(node<T> y){
@@ -200,5 +180,69 @@ public abstract class twothreeTree<T> {
             }
         }
     }
+
+    public node<T> Minimum(){//fix later
+        node<T> x = this.root;
+        while(!(x.getLeft() instanceof leaf))//x is not a leaf
+            x = x.getLeft();
+        x = x.getp().getMiddle();
+        if(!(x.getKey() instanceof Sentinal))
+            return x;
+        throw new IllegalArgumentException("T is empty");
+    }
+
+    public node<T> Successor(node<T> x){//fix later
+        node<T> z = x.getp();
+        node<T> y;
+        while(x == x.getRight() || (z.getRight() == null && x == z.getMiddle())){
+            x = z;
+            z = z.getp();
+        }
+        if(x == z.getLeft())
+            y = z.getMiddle();
+        else
+            y = z.getRight();
+        while(!(y.getLeft() instanceof leaf))//y is not a leaf
+            y = y.getLeft();
+        //if(y.isSmaller(new Sentinal()))
+        //    return y;
+        return null;
+    }
+
+
+    public void printTree() {
+        System.out.println();
+        printNode(root, 0);
+        System.out.println();
+    }
+
+    private void printNode(node<T> n, int depth) {
+        if (n == null) {
+            for (int i = 0; i < depth; i++) {
+                System.out.print("  ");
+            }
+            System.out.println("|-- null");
+            return;
+        }
+
+        for (int i = 0; i < depth; i++) {
+            System.out.print("  ");
+        }
+
+        System.out.println("|-- " + n.getKey());
+
+        if (n instanceof internalNode) {
+            internalNode<T> internal = (internalNode<T>) n;
+            printNode(internal.getLeft(), depth + 1);
+            printNode(internal.getMiddle(), depth + 1);
+            printNode(internal.getRight(), depth + 1);
+        } else if (n instanceof leaf) {
+            for (int i = 0; i < depth + 1; i++) {
+                System.out.print("  ");
+            }
+            System.out.println("|-- " + ((leaf<T>) n).getKey());
+        }
+    }
+
 }
 
