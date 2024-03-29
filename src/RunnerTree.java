@@ -38,7 +38,7 @@ public class RunnerTree<T> extends leaf<T> {
     public void Insert(node z){
         node y = this.Treekey;
         z.setSize(1);
-        while(y.getLeft() != null) {//y is not a leaf
+        while((!(y.getKey() instanceof leaf) || !(y instanceof leaf)) && y.getLeft() != null) {//y is not a leaf
             if ((float) z.getKey() < (float)y.getLeft().getKey()) y = y.getLeft();
             else if((float)z.getKey() < (float)y.getMiddle().getKey()) y =y.getMiddle();
             else y = y.getRight();
@@ -92,7 +92,10 @@ public class RunnerTree<T> extends leaf<T> {
             Set_Children(x, l, m, null);
             Set_Children(y, z, r, null);
         }
-        else Set_Children(y, r, z, null);
+        else {
+            Set_Children(x, l, m, null);
+            Set_Children(y, r, z, null);
+        }
         return y;
         //if a new Treekey needs to be added then update its size value (sum of childrens size attribute)
         //need to implement?
