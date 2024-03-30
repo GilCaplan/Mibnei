@@ -4,10 +4,10 @@ public class Race {
     // runtime of requested functions.
     private twothreeTree<RunnerID> IDtree;
 
-    public Race() throws CastingException {
+    public Race() {
         init();
     }
-    public void init() throws CastingException {
+    public void init() {
           IDtree = new IDtree<>();
     }
     public void addRunner(RunnerID id)  {
@@ -20,7 +20,7 @@ public class Race {
     }
 
     public void addRunToRunner(RunnerID id, float time) {
-        RunnerTree runner = (RunnerTree) IDtree.Search(null, new leaf<>(id));
+        RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
         runner.Insert(new internalNode<>(time));
     }
 

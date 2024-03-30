@@ -43,7 +43,7 @@ public abstract class node<T> implements Key<T>{
         this.p = null;
         this.right = null;
         this.key = key;
-        this.skey = (float) 0.0;
+        this.skey = (float) -1;
     }
 
 

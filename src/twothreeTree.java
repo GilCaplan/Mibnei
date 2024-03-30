@@ -257,12 +257,23 @@ public abstract class twothreeTree<T> {
         if(y.getKey() instanceof Sentinal){
             return y.getKey().toString().equals("s+");
         }
+        if(x.getSecondaryKey() != (float)-1){
+            return x.getKey().toString().equals(y.getKey().toString()) && x.getSecondaryKey() < y.getSecondaryKey();
+        }
         return x.isSmaller(y.getKey());
     }
     public boolean keyEqual(node<T> x, node<T> y){
         if (x.getKey() instanceof Sentinal || y.getKey() instanceof Sentinal)
             return false;
-        return x.getKey().toString().equals(y.getKey().toString());
+        return x.getKey().toString().equals(y.getKey().toString()) && x.getSecondaryKey() == y.getSecondaryKey();
     }
+
+//    public boolean keyDiff(node<T> x, node<T> y){
+//        if (x.getKey() instanceof Sentinal || y.getKey() instanceof Sentinal)
+//            return true;
+//        if(x.getSecondaryKey() != -1)
+//            return x.getKey().toString().equals(y.getKey().toString()) && x.getSecondaryKey() != y.getSecondaryKey();
+//        return !(x.getKey().toString().equals(y.getKey().toString()));
+//    }
 }
 

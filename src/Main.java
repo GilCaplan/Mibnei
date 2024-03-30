@@ -19,7 +19,7 @@ class RunnerIDInt extends RunnerID{
 
 
 public class Main {
-    public static void main(String[] args) throws CastingException {
+    public static void main(String[] args) {
         // The ids which we will check will not necessarily be RunnerIDInt
         // This is just for the example
         RunnerIDInt id1 = new RunnerIDInt(3);
