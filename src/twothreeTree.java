@@ -40,9 +40,9 @@ public abstract class twothreeTree<T> {
 
     public void Update_Key(node<T> x){
         x.setKey(x.getLeft().getKey());
-        if(x.getMiddle() != null && !(x.getMiddle().getKey().equals("s+") || x.getMiddle().getKey().equals("s-")))
+        if(x.getMiddle() != null && !(x.getMiddle().getKey().equals("s-")))
             x.setKey(x.getMiddle().getKey());
-        if(x.getRight() != null && !(x.getMiddle().getKey().equals("s+") || x.getMiddle().getKey().equals("s-")))
+        if(x.getRight() != null && !(x.getMiddle().getKey().equals("s-")))
             x.setKey(x.getRight().getKey());
     }
 

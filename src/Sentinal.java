@@ -5,8 +5,8 @@ public class Sentinal extends RunnerID{
     }
 
     @Override
-    public boolean isSmaller(RunnerID other) {
-        return this.flag;
+    public boolean isSmaller(RunnerID other) {//sentinal < other.key
+        return !this.flag;
     }
 
     public float getFloat(){
@@ -15,7 +15,7 @@ public class Sentinal extends RunnerID{
 
     @Override
     public String toString() {
-        String type = !this.flag? "+":"-";
+        String type = this.flag? "+":"-";
         return "s"+type;
     }
 }
