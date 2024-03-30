@@ -1,5 +1,5 @@
 public class IDtree<RunnerID> extends twothreeTree<RunnerID>{
-    public IDtree() throws CastingException {
+    public IDtree() {
         this.Init();
     }
 }

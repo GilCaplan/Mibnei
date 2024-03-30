@@ -218,7 +218,7 @@ public abstract class twothreeTree<T> {
 
 
     public void printTree() {
-        System.out.println("new print of tree");
+        System.out.println("new print of tree, tree object type is" +this.getClass().getName());
         System.out.println();
         printNode(root, 0);
         System.out.println();
