@@ -30,9 +30,9 @@ public abstract class twothreeTree<T> {
                 return x;
             return null;
         }
-        if(!x.getLeft().isSmaller(k.getKey()))
+        if(checkSmaller(k, x.getLeft()) || keyEqual(x.getLeft(), k))
             return Search(x.getLeft(), k);
-        if(!x.getMiddle().isSmaller(k.getKey()))
+        if(checkSmaller(k, x.getMiddle()) || keyEqual(x.getMiddle(), k))
             return Search(x.getMiddle(), k);
         return Search(x.getRight(), k);
     }
@@ -258,6 +258,11 @@ public abstract class twothreeTree<T> {
             return y.getKey().toString().equals("s+");
         }
         return x.isSmaller(y.getKey());
+    }
+    public boolean keyEqual(node<T> x, node<T> y){
+        if (x.getKey() instanceof Sentinal || y.getKey() instanceof Sentinal)
+            return false;
+        return x.getKey().toString().equals(y.getKey().toString());
     }
 }
 
