@@ -2,16 +2,13 @@
 public class Race {
     // create some sort of Tree object data structure that can support the
     // runtime of requested functions.
-    private twothreeTree IDtree;
+    private twothreeTree<RunnerID> IDtree;
 
     public Race() throws CastingException {
         init();
     }
     public void init() throws CastingException {
-//        IDheap = new heap<>();
-          IDtree = new IDtree<RunnerID>();
-//        avgheap = new heap<>();
-//        minheap = new heap<>();
+          IDtree = new IDtree<>();
     }
     public void addRunner(RunnerID id)  {
         IDtree.Insert(new RunnerTree<>(id));
@@ -22,9 +19,9 @@ public class Race {
 
     }
 
-    public void addRunToRunner(RunnerID id, float time) throws CastingException {
-        IDtree.Search(null, null);
-//        Runner
+    public void addRunToRunner(RunnerID id, float time) {
+        RunnerTree runner = (RunnerTree) IDtree.Search(null, new leaf<>(id));
+        runner.Insert(new internalNode<>(time));
     }
 
     public void removeRunFromRunner(RunnerID id, float time)

@@ -23,14 +23,16 @@ public abstract class twothreeTree<T> {
     }
 
     public node<T> Search(node<T> x, node<T> k)  {
-        if(x instanceof leaf<T>) {
-            if(x.getKey() == k)
-                return this.root;
-            else return null;
+        if (x == null)
+            x = this.root;
+        if(x instanceof leaf || x.getLeft() == null) {
+            if(x.getKey() == k.getKey())
+                return x;
+            return null;
         }
-        if(k.isSmaller((x.getLeft()).getKey()))
+        if(!x.getLeft().isSmaller(k.getKey()))
             return Search(x.getLeft(), k);
-        if(k.isSmaller( (x.getMiddle().getKey())))
+        if(!x.getMiddle().isSmaller(k.getKey()))
             return Search(x.getMiddle(), k);
         return Search(x.getRight(), k);
     }
@@ -214,8 +216,10 @@ public abstract class twothreeTree<T> {
 
 
     public void printTree() {
+        System.out.println("new print of tree");
         System.out.println();
         printNode(root, 0);
+        System.out.println();
         System.out.println();
     }
 
@@ -243,7 +247,7 @@ public abstract class twothreeTree<T> {
             for (int i = 0; i < depth + 1; i++) {
                 System.out.print("  ");
             }
-            System.out.println("|-- " + ((leaf<T>) n).getKey());
+            System.out.println("|-- " + n.getKey());
         }
     }
 
