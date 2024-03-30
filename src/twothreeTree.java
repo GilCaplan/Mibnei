@@ -8,7 +8,7 @@ public abstract class twothreeTree<T> {
         internalNode<T> x = new internalNode<>(null);
 
         // sentinel node<T>s
-        node<T> l = new internalNode<>((T)new Sentinal("-inf"));
+        node<T> l = new internalNode<>((T) new Sentinal("-inf"));
         node<T> m = new internalNode<>((T) new Sentinal("inf"));
 
         l.setp(x);
@@ -40,9 +40,9 @@ public abstract class twothreeTree<T> {
 
     public void Update_Key(node<T> x){
         x.setKey(x.getLeft().getKey());
-        if(x.getMiddle() != null && !(x.getMiddle().getKey().equals("s-")))
+        if(x.getMiddle() != null)
             x.setKey(x.getMiddle().getKey());
-        if(x.getRight() != null && !(x.getMiddle().getKey().equals("s-")))
+        if(x.getRight() != null)
             x.setKey(x.getRight().getKey());
     }
 
@@ -50,6 +50,8 @@ public abstract class twothreeTree<T> {
         x.setLeft(l);
         x.setMiddle(m);
         x.setRight(r);
+
+        l.setp(x);
 
         if(m != null)
             m.setp(x);
@@ -62,25 +64,25 @@ public abstract class twothreeTree<T> {
         node<T> l = x.getLeft();
         node<T> m = x.getMiddle();
         node<T> r = x.getRight();
-        if(r == null){//check both ways incase of sentinal
-            if(z.isSmaller(l.getKey()) || !z.isSmaller(l.getKey()))
+        if(r == null){//check both ways incase off a sentinal
+            if(checkSmaller(z, l))
                 Set_Children(x, z, l, m);
-            else if(z.isSmaller(m.getKey()) || !m.isSmaller(z.getKey()))
+            else if(checkSmaller(z, m))
                 Set_Children(x, l, z, m);
             else
                 Set_Children(x, l, m, z);
             return null;
         }
         node<T> y = new internalNode<>(m.getKey());//check
-        if(z.isSmaller(l.getKey()) || !l.isSmaller(z.getKey())){
+        if(checkSmaller(z, l)){
             Set_Children(x, z, l, null);
             Set_Children(y, m, r, null);
         }
-        else if(z.isSmaller(m.getKey()) || !m.isSmaller(z.getKey())){
+        else if(checkSmaller(z, m)){
             Set_Children(x, l, z, null);
             Set_Children(y, m, r, null);
         }
-        else if(z.isSmaller(r.getKey()) || !r.isSmaller(z.getKey())){
+        else if(checkSmaller(z, r)){
             Set_Children(x, l, m, null);
             Set_Children(y, z, r, null);
         }
@@ -94,9 +96,9 @@ public abstract class twothreeTree<T> {
     public void Insert(node<T> z) {
         node<T> y = this.root;
         while((!(y.getKey() instanceof leaf) || !(y instanceof leaf)) && y.getLeft() != null) {//y is not a leaf
-            if (z.isSmaller(y.getLeft().getKey()) || (y.getLeft().getKey()).toString().equals("s+"))
+            if (checkSmaller(z, y.getLeft()))
                 y = y.getLeft();
-            else if(z.isSmaller(y.getMiddle().getKey()) || (y.getMiddle().getKey()).toString().equals("s+"))
+            else if(checkSmaller(z, y.getMiddle()))
                     y = y.getMiddle();
             else y = y.getRight();
         }
@@ -250,6 +252,12 @@ public abstract class twothreeTree<T> {
             System.out.println("|-- " + n.getKey());
         }
     }
-
+    public boolean checkSmaller(node<T> x, node<T> y){
+        //check if x is smaller than y
+        if(y.getKey() instanceof Sentinal){
+            return y.getKey().toString().equals("s+");
+        }
+        return x.isSmaller(y.getKey());
+    }
 }
 
