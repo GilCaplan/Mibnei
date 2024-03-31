@@ -7,11 +7,19 @@ public class RunnerTree<T> extends leaf<T> {
         this.id = i;
         runs = new Runner2_3Tree();
     }
+    public RunnerTree(RunnerID i, float skey){
+        super((T) i, skey);
+        this.id = i;
+        runs = new Runner2_3Tree();
+    }
     public void Insert(node<Float> z){
         this.runs.Insert(z);
     }
     public void Delete(node<Float> z){
         this.runs.Delete(z);
+    }
+    public float Successor(){
+        return this.runs.Successor(null).getKey();
     }
 
 }
