@@ -16,7 +16,7 @@ public class Race {
 
     public void removeRunner(RunnerID id)
     {
-
+        IDtree.Delete(new leaf<>(id));
     }
 
     public void addRunToRunner(RunnerID id, float time) {
@@ -26,7 +26,8 @@ public class Race {
 
     public void removeRunFromRunner(RunnerID id, float time)
     {
-        throw new UnsupportedOperationException("not implemented");
+        RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
+        runner.Delete(new internalNode<>(time));
     }
 
     public RunnerID getFastestRunnerAvg()

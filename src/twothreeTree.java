@@ -160,10 +160,10 @@ public abstract class twothreeTree<T> {
     }
 
     public void Delete(node<T> x){
-        node<T> y = x.getp();
-        if( x == y.getLeft())
+        node<T> y = this.Search(null, x).getp();
+        if(keyEqual(x, y.getLeft()))
             Set_Children(y, y.getMiddle(), y.getRight(), null);
-        else if(x == y.getMiddle()){
+        else if(keyEqual(x, y.getMiddle())){
             Set_Children(y, y.getLeft(), y.getRight(), null);
         }
         else {

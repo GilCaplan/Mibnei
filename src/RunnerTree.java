@@ -10,5 +10,8 @@ public class RunnerTree<T> extends leaf<T> {
     public void Insert(node<Float> z){
         this.runs.Insert(z);
     }
+    public void Delete(node<Float> z){
+        this.runs.Delete(z);
+    }
 
 }
