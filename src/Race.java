@@ -1,7 +1,5 @@
 
 public class Race {
-    // create some sort of Tree object data structure that can support the
-    // runtime of requested functions.
     private twothreeTree<RunnerID> IDtree;
     private twothreeTree<RunnerID> minTree;
     private twothreeTree<RunnerID> avgTree;
@@ -15,15 +13,17 @@ public class Race {
           avgTree = new IDtree();
     }
     public void addRunner(RunnerID id)  {
-        IDtree.Insert(new RunnerTree<>(id));
-        minTree.Insert(new RunnerTree<>(id, 999999999));
-        avgTree.Insert(new RunnerTree<>(id, 999999999));
+        node<RunnerID> runner = new RunnerTree<>(id);//shallow copy on purpose
+        IDtree.Insert(runner);
+        minTree.Insert(runner);
+        avgTree.Insert(runner);
     }
 
-    public void removeRunner(RunnerID id)
+    public void removeRunner(RunnerID id)//* need to fix, how to delete from min, avg Tree
     {
         IDtree.Delete(new leaf<>(id));
         minTree.Delete(new leaf<>(id));//need to fix according to skey
+        avgTree.Delete(new leaf<>(id));
     }
 
     public void addRunToRunner(RunnerID id, float time) {
