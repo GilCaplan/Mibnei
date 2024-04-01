@@ -8,30 +8,13 @@ public abstract class node<T extends RunnerID> implements Key<T>{
     private T id;
     private int size=0;
 
-    public void setP(node<T> p) {
-        this.p = p;
-    }
-
     public void setSize(int size) {
         this.size = size;
-    }
-
-    public void setSkey(float skey) {
-        this.skey = skey;
-    }
-
-    public node<T> getP() {
-        return p;
     }
 
     public int getSize() {
         return size;
     }
-
-    public float getSkey() {
-        return this.skey;
-    }
-
 
     public void setp(node<T> p) {
         this.p = p;
@@ -99,11 +82,6 @@ public abstract class node<T extends RunnerID> implements Key<T>{
         return this.getKey().isSmaller(other);
     }
 
-//    @Override
-//    public boolean isSmaller(T other) {//don't call
-//
-//        return false;
-//    }
     @Override
     public void setKey(T k) {
         this.key = k;

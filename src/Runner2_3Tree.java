@@ -10,6 +10,6 @@ public class Runner2_3Tree extends twothreeTree<myFloat>{
 
     @Override
     public String toString() {
-        return null;
+        return "in Runner2_3_tree class";
     }
 }

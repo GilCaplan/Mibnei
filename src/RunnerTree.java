@@ -1,7 +1,8 @@
 public class RunnerTree<T extends RunnerID> extends leaf<T> {
     private twothreeTree<myFloat> runs;
     private float minTime;
-    private RunnerID id;
+
+    private final RunnerID id;
     private int len, sumTime;
     //left to do, implement extra attributes to Treekey that saves min, avg run of runner
     public RunnerTree(RunnerID i){
@@ -32,5 +33,8 @@ public class RunnerTree<T extends RunnerID> extends leaf<T> {
 
     public float getAvgRun(){return (float) sumTime / len;}
 
+    public RunnerID getId() {
+        return id;
+    }
 
 }
