@@ -4,6 +4,7 @@ public class Race {
     // runtime of requested functions.
     private twothreeTree<RunnerID> IDtree;
     private twothreeTree<RunnerID> minTree;
+    private twothreeTree<RunnerID> avgTree;
 
     public Race() {
         init();
@@ -11,10 +12,12 @@ public class Race {
     public void init() {
           IDtree = new IDtree<>();
           minTree = new IDtree<>();
+          avgTree = new IDtree<>();
     }
     public void addRunner(RunnerID id)  {
         IDtree.Insert(new RunnerTree<>(id));
         minTree.Insert(new RunnerTree<>(id, 999999999));
+        avgTree.Insert(new RunnerTree<>(id, 999999999));
     }
 
     public void removeRunner(RunnerID id)
@@ -48,7 +51,7 @@ public class Race {
     public float getMinRun(RunnerID id)
     {
         RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
-        return runner.Successor();
+        return runner.getMinTime();
     }
     public float getAvgRun(RunnerID id){
         throw new UnsupportedOperationException("not implemented");

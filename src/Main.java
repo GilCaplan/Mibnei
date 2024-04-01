@@ -27,7 +27,11 @@ public class Main {
         Race race = new Race();
         race.addRunner(id1);
         race.addRunner(id2);
-        race.removeRunner(id2);
+//        int[] array = new int[]{1,4,5,7,14,19,22,25,29};
+//        for (int j : array) {
+//            race.addRunner(new RunnerIDInt(j));
+//        }
+//        race.removeRunner(id2);
 
 
         race.addRunToRunner(id1, (float)118.0);
