@@ -1,4 +1,4 @@
-public abstract class node<T> implements Key<T>{
+public abstract class node<T extends RunnerID> implements Key<T>{
     private node<T> p;
     private node<T> left;
     private node<T> middle;
@@ -94,15 +94,16 @@ public abstract class node<T> implements Key<T>{
         return this.skey;
     }
 
-//    @Override
-//    public boolean isSmaller(T other) {//don't call
-//        return this.getKey().isSmaller(other);
-//    }
-
     @Override
     public boolean isSmaller(T other) {//don't call
-        return false;
+        return this.getKey().isSmaller(other);
     }
+
+//    @Override
+//    public boolean isSmaller(T other) {//don't call
+//
+//        return false;
+//    }
     @Override
     public void setKey(T k) {
         this.key = k;

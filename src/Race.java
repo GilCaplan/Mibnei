@@ -27,13 +27,13 @@ public class Race {
 
     public void addRunToRunner(RunnerID id, float time) {
         RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
-        runner.Insert(new leaf<>(time));
+        runner.Insert(new leaf<>(new myFloat(time)));
     }
 
     public void removeRunFromRunner(RunnerID id, float time)
     {
         RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
-        runner.Delete(new leaf<>(time));
+        runner.Delete(new leaf<>(new myFloat(time)));
     }
 
     public RunnerID getFastestRunnerAvg()

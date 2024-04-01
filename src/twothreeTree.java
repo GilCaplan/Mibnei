@@ -1,4 +1,4 @@
-public abstract class twothreeTree<T> extends RunnerID {
+public abstract class twothreeTree<T extends RunnerID> extends RunnerID {
     protected node<T> root;
     public twothreeTree(){
         Init();
@@ -258,9 +258,12 @@ public abstract class twothreeTree<T> extends RunnerID {
             return y.getKey().toString().equals("s+");
         }
         if(x.getSecondaryKey() != (float)-1){
-            return x.getKey().toString().equals(y.getKey().toString()) && x.getSecondaryKey() < y.getSecondaryKey();
+            if(x.getKey().toString().equals(y.getKey().toString())){
+                return x.getKey().isSmaller(y.getKey());
+            }
+            return x.getSecondaryKey() < y.getSecondaryKey();
         }
-        return x.isSmaller(y.getKey());
+        return x.getKey().isSmaller(y.getKey());
     }
     public boolean keyEqual(node<T> x, node<T> y){
         if (x.getKey() instanceof Sentinal || y.getKey() instanceof Sentinal)
