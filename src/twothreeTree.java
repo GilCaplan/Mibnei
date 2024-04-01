@@ -10,6 +10,9 @@ public abstract class twothreeTree<T extends RunnerID> extends RunnerID {
         // sentinel node<T>s
         node<T> l = new internalNode<>((T) new Sentinal("-inf"));
         node<T> m = new internalNode<>((T) new Sentinal("inf"));
+        l.setSize(0);
+        m.setSize(0);
+        x.setSize(0);
 
         l.setp(x);
         m.setp(x);
@@ -187,6 +190,19 @@ public abstract class twothreeTree<T extends RunnerID> extends RunnerID {
             }
         }
     }
+    public int Rank(node<T> x){
+        int rank = 1;
+        node<T> y = x.getp();
+        while(y != null){
+            if(x == y.getMiddle())
+                rank = rank + y.getLeft().getSize();
+            else if(x == y.getRight())
+                rank += y.getLeft().getSize() + y.getMiddle().getSize();
+            x = y;
+            y = y.getp();
+        }
+        return rank;
+    }
 
     public node<T> Minimum(){//fix later
         node<T> x = this.root;
@@ -270,6 +286,8 @@ public abstract class twothreeTree<T extends RunnerID> extends RunnerID {
             return false;
         return x.getKey().toString().equals(y.getKey().toString()) && x.getSecondaryKey() == y.getSecondaryKey();
     }
+
+
 
 //    public boolean keyDiff(node<T> x, node<T> y){
 //        if (x.getKey() instanceof Sentinal || y.getKey() instanceof Sentinal)

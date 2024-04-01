@@ -1,4 +1,4 @@
-public class myFloat implements Key<myFloat> {
+public class myFloat extends RunnerID implements Key<myFloat> {
     private float key;
     public myFloat(float key){
         this.key = key;
@@ -26,5 +26,15 @@ public class myFloat implements Key<myFloat> {
     @Override
     public boolean isSmaller(myFloat other) {
         return false;
+    }
+
+    @Override
+    public boolean isSmaller(RunnerID other) {
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return null;
     }
 }

@@ -10,9 +10,9 @@ public class Race {
         init();
     }
     public void init() {
-          IDtree = new IDtree<>();
-          minTree = new IDtree<>();
-          avgTree = new IDtree<>();
+          IDtree = new IDtree();
+          minTree = new IDtree();
+          avgTree = new IDtree();
     }
     public void addRunner(RunnerID id)  {
         IDtree.Insert(new RunnerTree<>(id));
@@ -23,6 +23,7 @@ public class Race {
     public void removeRunner(RunnerID id)
     {
         IDtree.Delete(new leaf<>(id));
+        minTree.Delete(new leaf<>(id));//need to fix according to skey
     }
 
     public void addRunToRunner(RunnerID id, float time) {
@@ -38,14 +39,12 @@ public class Race {
 
     public RunnerID getFastestRunnerAvg()
     {
-
-        throw new UnsupportedOperationException("not implemented");
+        return avgTree.Minimum().getKey();
     }
 
     public RunnerID getFastestRunnerMin()
     {
-
-        throw new UnsupportedOperationException("not implemented");
+        return minTree.Minimum().getKey();
     }
 
     public float getMinRun(RunnerID id)
@@ -54,16 +53,19 @@ public class Race {
         return runner.getMinTime();
     }
     public float getAvgRun(RunnerID id){
-        throw new UnsupportedOperationException("not implemented");
+        RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
+        return runner.getAvgRun();
     }
 
     public int getRankAvg(RunnerID id)
     {
-        throw new UnsupportedOperationException("not implemented");
+        RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
+        return avgTree.Rank(runner);
     }
 
     public int getRankMin(RunnerID id)
     {
-        throw new UnsupportedOperationException("not implemented");
+        RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
+        return minTree.Rank(runner);
     }
 }

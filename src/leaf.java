@@ -1,4 +1,4 @@
-public class leaf<T> extends node<T>{
+public class leaf<T extends RunnerID> extends node<T>{
     public leaf(T key) {
         super(key);
     }

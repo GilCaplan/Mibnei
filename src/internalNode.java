@@ -1,4 +1,4 @@
-public class internalNode<T> extends node<T>{
+public class internalNode<T extends RunnerID> extends node<T>{
     public internalNode(T key) {
         super(key);
     }
