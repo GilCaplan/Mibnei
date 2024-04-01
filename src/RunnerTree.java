@@ -36,5 +36,4 @@ public class RunnerTree<T extends RunnerID> extends leaf<T> {
     public RunnerID getId() {
         return id;
     }
-
 }
