@@ -190,6 +190,7 @@ public abstract class twothreeTree<T extends RunnerID> extends RunnerID {
             }
         }
     }
+
     public int Rank(node<T> x){
         int rank = 1;
         node<T> y = x.getp();
