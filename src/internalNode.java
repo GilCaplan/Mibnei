@@ -7,5 +7,4 @@ public class internalNode<T> extends node<T>{
         super(key, skey);
     }
 
-
 }

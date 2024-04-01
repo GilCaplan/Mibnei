@@ -94,11 +94,15 @@ public abstract class node<T> implements Key<T>{
         return this.skey;
     }
 
+//    @Override
+//    public boolean isSmaller(T other) {//don't call
+//        return this.getKey().isSmaller(other);
+//    }
+
     @Override
-    public boolean isSmaller(T other) {
+    public boolean isSmaller(T other) {//don't call
         return false;
     }
-
     @Override
     public void setKey(T k) {
         this.key = k;

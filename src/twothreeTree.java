@@ -1,4 +1,4 @@
-public abstract class twothreeTree<T> {
+public abstract class twothreeTree<T> extends RunnerID {
     protected node<T> root;
     public twothreeTree(){
         Init();
@@ -73,7 +73,7 @@ public abstract class twothreeTree<T> {
                 Set_Children(x, l, m, z);
             return null;
         }
-        node<T> y = new internalNode<>(m.getKey());//check
+        node<T> y = new internalNode<>(null);//
         if(checkSmaller(z, l)){
             Set_Children(x, z, l, null);
             Set_Children(y, m, r, null);
@@ -95,7 +95,7 @@ public abstract class twothreeTree<T> {
 
     public void Insert(node<T> z) {
         node<T> y = this.root;
-        while((!(y.getKey() instanceof leaf) || !(y instanceof leaf)) && y.getLeft() != null) {//y is not a leaf
+        while(!(y instanceof leaf) && y.getLeft() != null) {//y is not a leaf
             if (checkSmaller(z, y.getLeft()))
                 y = y.getLeft();
             else if(checkSmaller(z, y.getMiddle()))

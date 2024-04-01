@@ -1,5 +1,5 @@
 public class RunnerTree<T> extends leaf<T> {
-    private twothreeTree<Float> runs;
+    private twothreeTree<myFloat> runs;
     private float minTime;
     private RunnerID id;
     //left to do, implement extra attributes to Treekey that saves min, avg run of runner
@@ -14,15 +14,15 @@ public class RunnerTree<T> extends leaf<T> {
         this.id = i;
         runs = new Runner2_3Tree();
     }
-    public void Insert(node<Float> z){
+    public void Insert(node<myFloat> z){
         this.runs.Insert(z);
-        this.minTime = this.getRuns().Minimum().getKey();
+        this.minTime = this.getRuns().Minimum().getKey().getF();
     }
-    public void Delete(node<Float> z){
+    public void Delete(node<myFloat> z){
         this.runs.Delete(z);
     }
 
-    public twothreeTree<Float> getRuns() {
+    public twothreeTree<myFloat> getRuns() {
         return runs;
     }
 
@@ -39,7 +39,7 @@ public class RunnerTree<T> extends leaf<T> {
     }
 
     public float Successor(){
-        return this.runs.Successor(null).getKey();
+        return this.runs.Successor(null).getKey().getF();
     }
 
 }
