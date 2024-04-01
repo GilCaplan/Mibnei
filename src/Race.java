@@ -10,7 +10,9 @@ public class Race {
     public void init() {
           IDtree = new IDtree();
           minTree = new IDtree();
-          avgTree = new IDtree();
+          //make separate tree class that's a wrapper class, implements getKey
+          // secondary key will be runner.getMin
+          avgTree = new IDtree();//same thing
     }
     public void addRunner(RunnerID id)  {
         node<RunnerID> runner = new RunnerTree<>(id);//shallow copy on purpose
