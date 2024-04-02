@@ -19,8 +19,8 @@ public class myFloat extends RunnerID implements Key<myFloat> {
     }
 
     @Override
-    public float getSecondaryKey() {
-        return 0;
+    public myFloat getSecondaryKey() {
+        return new myFloat(0);
     }
 
     @Override

@@ -24,9 +24,9 @@ public class Race {
     public void removeRunner(RunnerID id)//* need to fix, how to delete from min, avg Tree
     {
         RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
-        IDtree.Delete(new leaf<>(id));
-        minTree.Delete(new leaf<>(id, runner.getMinTime()));
-        avgTree.Delete(new leaf<>(id, runner.getAvgRun()));
+        IDtree.Delete(new internalNode<>(id));
+        minTree.Delete(new internalNode<>(id, runner.getMinTime()));
+        avgTree.Delete(new internalNode<>(id, runner.getAvgRun()));
     }
 
     public void addRunToRunner(RunnerID id, float time) {
@@ -59,11 +59,11 @@ public class Race {
     public float getMinRun(RunnerID id)
     {
         RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
-        return runner.getMinTime();
+        return runner.getMinTime().getF();
     }
     public float getAvgRun(RunnerID id){
         RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
-        return runner.getAvgRun();
+        return runner.getAvgRun().getF();
     }
 
     public int getRankAvg(RunnerID id)
@@ -79,8 +79,8 @@ public class Race {
     }
 
     public void fixMinAvgRuns(RunnerID id, RunnerTree<RunnerID> runner){
-        minTree.Delete(new leaf<>(id, runner.getMinTime()));//check that found properly
-        avgTree.Delete(new leaf<>(id, runner.getAvgRun()));
+        minTree.Delete(new internalNode<>(id, runner.getMinTime()));//check that found properly
+        avgTree.Delete(new internalNode<>(id, runner.getAvgRun()));
         minTree.Insert(new minRunner(runner));
         avgTree.Insert(new avgRunner(runner));
     }

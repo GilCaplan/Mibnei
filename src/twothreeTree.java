@@ -6,13 +6,8 @@ public abstract class twothreeTree<T extends RunnerID> {
 
     public void Init(){
         internalNode<T> x = new internalNode<>((T) new Sentinal("inf"));
-
-        // sentinel node<T>s
         node<T> l = new leaf<>((T) new Sentinal("-inf"));
         node<T> m = new leaf<>((T) new Sentinal("inf"));
-        l.setSize(0);
-        m.setSize(0);
-        x.setSize(0);
 
         l.setp(x);
         m.setp(x);
@@ -32,10 +27,14 @@ public abstract class twothreeTree<T extends RunnerID> {
                 return x;
             return null;
         }
-        if(checkSmaller(k, x.getLeft()) || keyEqual(x.getLeft(), k))
-            return Search(x.getLeft(), k);
-        if(checkSmaller(k, x.getMiddle()) || keyEqual(x.getMiddle(), k))
+        if (k.isSmaller((x).getLeft().getKey()) || k.getKey().equals(x.getLeft().getKey()))
+            return Search(x.getLeft(),k);
+        if(k.isSmaller(x.getMiddle().getKey()) || k.getKey().equals(x.getMiddle().getKey()))
             return Search(x.getMiddle(), k);
+//        if(checkSmaller(k, x.getLeft()) || keyEqual(x.getLeft(), k))
+//            return Search(x.getLeft(), k);
+//        if(checkSmaller(k, x.getMiddle()) || keyEqual(x.getMiddle(), k))
+//            return Search(x.getMiddle(), k);
         return Search(x.getRight(), k);
     }
 
@@ -52,7 +51,6 @@ public abstract class twothreeTree<T extends RunnerID> {
         x.setLeft(l);
         x.setMiddle(m);
         x.setRight(r);
-
         l.setp(x);
 
         if(m != null)
@@ -61,7 +59,7 @@ public abstract class twothreeTree<T extends RunnerID> {
             r.setp(x);
         Update_Key(x);
         if(m != null)
-            updateSize(x);
+            UpdateSize(x);
     }
 
     public node<T> Insert_And_Split(internalNode<T> x, node<T> z) {
@@ -97,10 +95,10 @@ public abstract class twothreeTree<T extends RunnerID> {
         return y;
     }
 
-    public void updateSize(internalNode<T> x){//fix
-        int s= x.getLeft().getSize()+x.getMiddle().getSize();
+    public void UpdateSize(internalNode<T> x){//fix
+        int s = x.getLeft().getSize() + x.getMiddle().getSize();
         if(x.getRight() != null)
-            s+=x.getRight().getSize();
+            s += x.getRight().getSize();
         x.setSize(s);
     }
 
@@ -122,7 +120,7 @@ public abstract class twothreeTree<T extends RunnerID> {
                 z = Insert_And_Split(x, z);
             else {
                 Update_Key(x);
-                updateSize(x);
+                UpdateSize(x);
             }
         }
         if(z != null){
@@ -195,7 +193,7 @@ public abstract class twothreeTree<T extends RunnerID> {
             }
             else{
                 Update_Key(y);
-                y = y.getp();
+                y = (internalNode<T>) y.getp();
             }
         }
     }
@@ -282,11 +280,11 @@ public abstract class twothreeTree<T extends RunnerID> {
         if(y.getKey() instanceof Sentinal){
             return y.getKey().toString().equals("s+");
         }
-        if(x.getSecondaryKey() != (float)-1){
+        if(x.getSecondaryKey().getF() != (float)-1){
             if(x.getKey().toString().equals(y.getKey().toString())){
                 return x.getKey().isSmaller(y.getKey());
             }
-            return x.getSecondaryKey() < y.getSecondaryKey();
+            return x.getSecondaryKey().getF() < y.getSecondaryKey().getF();
         }
         return x.getKey().isSmaller(y.getKey());
     }

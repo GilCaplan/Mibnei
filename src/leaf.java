@@ -3,7 +3,7 @@ public class leaf<T extends RunnerID> extends node<T>{
         super(key);
     }
 
-    public leaf(T key, float skey) {
+    public leaf(T key, myFloat skey) {
         super(key, skey);
     }
 }

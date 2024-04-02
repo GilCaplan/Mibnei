@@ -1,6 +1,6 @@
 public class RunnerTree<T extends RunnerID> extends leaf<T> {
     private twothreeTree<myFloat> runs;
-    private float minTime;
+    private myFloat minTime;
 
     private final RunnerID id;
     private int len, sumTime;
@@ -9,16 +9,16 @@ public class RunnerTree<T extends RunnerID> extends leaf<T> {
         super((T) i);
         this.id = i;
         runs = new Runner2_3Tree();
-        this.minTime = Float.MIN_VALUE;
+        this.minTime = new myFloat(Float.MIN_VALUE);
     }
     public void Insert(node<myFloat> z){
         this.runs.Insert(z);
-        this.minTime = this.getRuns().Minimum().getKey().getF();
+        this.minTime = this.getRuns().Minimum().getKey();
         len++;
         sumTime += z.getKey().getF();
     }
     public void Delete(node<myFloat> z){
-        this.runs.Delete(z);
+        this.runs.Delete((internalNode<myFloat>) z);
         len--;
         sumTime -= z.getKey().getF();
     }
@@ -27,11 +27,11 @@ public class RunnerTree<T extends RunnerID> extends leaf<T> {
         return runs;
     }
 
-    public float getMinTime() {
+    public myFloat getMinTime() {
         return minTime;
     }
 
-    public float getAvgRun(){return (float) sumTime / len;}
+    public myFloat getAvgRun(){return new myFloat((float) sumTime / len);}
 
     public RunnerID getId() {
         return id;

@@ -4,7 +4,7 @@ public abstract class node<T extends RunnerID> implements Key<T>{
     private node<T> middle;
     private node<T> right;
     private T key;
-    private float skey;
+    private myFloat skey;
     private T id;
     private int size=0;
 
@@ -26,11 +26,11 @@ public abstract class node<T extends RunnerID> implements Key<T>{
         this.p = null;
         this.right = null;
         this.key = key;
-        this.skey = (float) -1;
+        this.skey = new myFloat((float) -1);
     }
 
 
-    public node(T key, float skey) {
+    public node(T key, myFloat skey) {
         this.left = null;
         this.middle = null;
         this.p = null;
@@ -73,7 +73,7 @@ public abstract class node<T extends RunnerID> implements Key<T>{
         return this.key;
     }
     @Override
-    public float getSecondaryKey() {
+    public myFloat getSecondaryKey() {
         return this.skey;
     }
 
