@@ -34,7 +34,8 @@ public class Main {
             race.addRunner(new RunnerIDInt(j));
         }
         printTree(race.getRoot(),"",true);
-//        race.removeRunner(id2);
+        race.removeRunner(new RunnerIDInt(5));
+        printTree(race.getRoot(),"",true);
 //        RunnerIDInt id;
 //        float[] run_times = new float[]{(float)0.5, (float)1.5, (float)4.5, 5, 6, (float)8.8, 9, 2};
 //        for (int j : runners) {

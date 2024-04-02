@@ -18,15 +18,13 @@ public abstract class twothreeTree<T extends RunnerID> {
         x.setLeft(l);
         x.setMiddle(m);
         this.root = x;
-        if(this instanceof IDtree)
-            printTree();
     }
 
     public node<T> Search(node<T> x, node<T> k)  {
         if (x == null)
             x = this.root;
         if(x instanceof leaf) {
-            if(x.getKey().equals(k.getKey()))
+            if(x.getKey().toString().equals(k.getKey().toString()))
                 return x;
             return null;
         }
@@ -239,36 +237,6 @@ public abstract class twothreeTree<T extends RunnerID> {
         return null;
     }
 
-
-    public void printTree() {
-        System.out.println("new print of tree, tree object type is" +this.getClass().getName());
-        System.out.println();
-        printNode(root, 0);
-        System.out.println();
-        System.out.println();
-    }
-
-    private void printNode(node<T> n, int depth) {
-        if (n == null) {
-//            for (int i = 0; i < depth; i++) {
-//                System.out.print("  ");
-//            }
-//            System.out.println("|-- null");
-            return;
-        }
-
-        for (int i = 0; i < depth; i++) {
-            System.out.print("  ");
-        }
-
-        System.out.println("|-- " + n.getKey());
-
-        if (n instanceof internalNode<T> internal) {
-            printNode(internal.getLeft(), depth + 1);
-            printNode(internal.getMiddle(), depth + 1);
-            printNode(internal.getRight(), depth + 1);
-        }
-    }
     public boolean checkSmaller(node<T> x, node<T> y){
         //check if x is smaller than y
         if(y.getKey() instanceof Sentinal){
@@ -288,7 +256,7 @@ public abstract class twothreeTree<T extends RunnerID> {
     public boolean keyEqual(node<T> x, node<T> y){
         if (x.getKey() instanceof Sentinal || y.getKey() instanceof Sentinal)
             return false;
-        return x.getKey().toString().equals(y.getKey().toString()) && x.getSecondaryKey() == y.getSecondaryKey();
+        return x.getKey().toString().equals(y.getKey().toString());// && x.getSecondaryKey() == y.getSecondaryKey();
     }
 }
 
