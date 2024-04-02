@@ -1,5 +1,5 @@
 public abstract class twothreeTree<T extends RunnerID> extends RunnerID {
-    protected node<T> root;
+    private node<T> root;
     public twothreeTree(){
         Init();
     }
