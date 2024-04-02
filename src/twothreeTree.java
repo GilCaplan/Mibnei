@@ -1,4 +1,4 @@
-public abstract class twothreeTree<T extends RunnerID> extends RunnerID {
+public abstract class twothreeTree<T extends RunnerID> {
     private node<T> root;
     public twothreeTree(){
         Init();
@@ -244,10 +244,10 @@ public abstract class twothreeTree<T extends RunnerID> extends RunnerID {
 
     private void printNode(node<T> n, int depth) {
         if (n == null) {
-            for (int i = 0; i < depth; i++) {
-                System.out.print("  ");
-            }
-            System.out.println("|-- null");
+//            for (int i = 0; i < depth; i++) {
+//                System.out.print("  ");
+//            }
+//            System.out.println("|-- null");
             return;
         }
 
@@ -257,8 +257,7 @@ public abstract class twothreeTree<T extends RunnerID> extends RunnerID {
 
         System.out.println("|-- " + n.getKey());
 
-        if (n instanceof internalNode) {
-            internalNode<T> internal = (internalNode<T>) n;
+        if (n instanceof internalNode<T> internal) {
             printNode(internal.getLeft(), depth + 1);
             printNode(internal.getMiddle(), depth + 1);
             printNode(internal.getRight(), depth + 1);
