@@ -17,8 +17,8 @@ public class Race {
     public void addRunner(RunnerID id)  {
         RunnerTree<RunnerID> runner = new RunnerTree<>(id);
         IDtree.Insert(runner);
-        minTree.Insert(new minRunner(runner));
-        avgTree.Insert(new avgRunner(runner));
+//        minTree.Insert(new minRunner(runner));
+//        avgTree.Insert(new avgRunner(runner));
     }
 
     public void removeRunner(RunnerID id)//* need to fix, how to delete from min, avg Tree

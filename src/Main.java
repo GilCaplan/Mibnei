@@ -29,7 +29,7 @@ public class Main {
 //        RunnerIDInt id2 = new RunnerIDInt(5);
 //        race.addRunner(id1);
 //        race.addRunner(id2);
-        int[] runners = new int[]{1,4,5,3, 7,14,19,22,25,29};
+        int[] runners = new int[]{1,3,4,5, 7,14,19,22,25,29};
         for (int j : runners) {
             race.addRunner(new RunnerIDInt(j));
         }

@@ -5,11 +5,11 @@ public abstract class twothreeTree<T extends RunnerID> {
     }
 
     public void Init(){
-        internalNode<T> x = new internalNode<>(null);
+        internalNode<T> x = new internalNode<>((T) new Sentinal("inf"));
 
         // sentinel node<T>s
-        node<T> l = new internalNode<>((T) new Sentinal("-inf"));
-        node<T> m = new internalNode<>((T) new Sentinal("inf"));
+        node<T> l = new leaf<>((T) new Sentinal("-inf"));
+        node<T> m = new leaf<>((T) new Sentinal("inf"));
         l.setSize(0);
         m.setSize(0);
         x.setSize(0);
@@ -17,7 +17,6 @@ public abstract class twothreeTree<T extends RunnerID> {
         l.setp(x);
         m.setp(x);
 
-        x.setKey((T) new Sentinal("inf"));
         x.setLeft(l);
         x.setMiddle(m);
         this.root = x;
@@ -28,8 +27,8 @@ public abstract class twothreeTree<T extends RunnerID> {
     public node<T> Search(node<T> x, node<T> k)  {
         if (x == null)
             x = this.root;
-        if(x instanceof leaf || x.getLeft() == null) {
-            if(x.getKey() == k.getKey())
+        if(x instanceof leaf) {
+            if(x.getKey().equals(k.getKey()))
                 return x;
             return null;
         }
@@ -41,7 +40,7 @@ public abstract class twothreeTree<T extends RunnerID> {
     }
 
 
-    public void Update_Key(node<T> x){
+    public void Update_Key(internalNode<T> x){
         x.setKey(x.getLeft().getKey());
         if(x.getMiddle() != null)
             x.setKey(x.getMiddle().getKey());
@@ -49,7 +48,7 @@ public abstract class twothreeTree<T extends RunnerID> {
             x.setKey(x.getRight().getKey());
     }
 
-    public void Set_Children(node<T> x, node<T> l, node<T> m, node<T> r){
+    public void Set_Children(internalNode<T> x, node<T> l, node<T> m, node<T> r){
         x.setLeft(l);
         x.setMiddle(m);
         x.setRight(r);
@@ -61,9 +60,11 @@ public abstract class twothreeTree<T extends RunnerID> {
         if(r != null)
             r.setp(x);
         Update_Key(x);
+        if(m != null)
+            updateSize(x);
     }
 
-    public node<T> Insert_And_Split(node<T> x, node<T> z) {
+    public node<T> Insert_And_Split(internalNode<T> x, node<T> z) {
         node<T> l = x.getLeft();
         node<T> m = x.getMiddle();
         node<T> r = x.getRight();
@@ -76,7 +77,7 @@ public abstract class twothreeTree<T extends RunnerID> {
                 Set_Children(x, l, m, z);
             return null;
         }
-        node<T> y = new internalNode<>(null);//
+        internalNode<T> y = new internalNode<>(null);//
         if(checkSmaller(z, l)){
             Set_Children(x, z, l, null);
             Set_Children(y, m, r, null);
@@ -96,74 +97,82 @@ public abstract class twothreeTree<T extends RunnerID> {
         return y;
     }
 
+    public void updateSize(internalNode<T> x){//fix
+        int s= x.getLeft().getSize()+x.getMiddle().getSize();
+        if(x.getRight() != null)
+            s+=x.getRight().getSize();
+        x.setSize(s);
+    }
+
     public void Insert(node<T> z) {
+        z.setSize(1);
         node<T> y = this.root;
-        while(!(y instanceof leaf) && y.getLeft() != null) {//y is not a leaf
+        while(!(y instanceof leaf)) {//y is not a leaf
             if (checkSmaller(z, y.getLeft()))
                 y = y.getLeft();
             else if(checkSmaller(z, y.getMiddle()))
                     y = y.getMiddle();
             else y = y.getRight();
         }
-        node<T> x = y.getp();
+        internalNode<T> x = (internalNode<T>) y.getp();
         z = Insert_And_Split(x, z);
         while(!x.equals(this.root)){
-            x = x.getp();
+            x = (internalNode<T>) x.getp();
             if(z != null)
                 z = Insert_And_Split(x, z);
-            else Update_Key(x);
+            else {
+                Update_Key(x);
+                updateSize(x);
+            }
         }
         if(z != null){
-            node<T> w = new internalNode<>(null);//check
+            internalNode<T> w = new internalNode<>(null);//check
             Set_Children(w, x, z, null);
             this.root = w;
         }
         printTree();
     }
 
-    public node<T> Borrow_Or_Merge(node<T> y){
-        node<T> z = y.getp();
+    public node<T> Borrow_Or_Merge(internalNode<T> y){
+        internalNode<T> z = (internalNode<T>) y.getp();
         if(y == z.getLeft()){
-            node<T> x = z.getMiddle();
+            internalNode<T> x = (internalNode<T>) z.getMiddle();
             if(x.getRight() != null){
                 Set_Children(y, y.getLeft(), x.getLeft(), null);
                 Set_Children(x, x.getMiddle(), x.getRight(), null);
             }
             else{
                 Set_Children(x, y.getLeft(), x.getLeft(), x.getMiddle());
-                //delete y?
                 Set_Children(z, x, z.getRight(), null);
             }
             return z;
         }
         if(y == z.getMiddle()){
-            node<T> x = z.getLeft();
+            internalNode<T> x = (internalNode<T>) z.getLeft();
             if(x.getRight() != null){
                 Set_Children(y, x.getRight(), y.getLeft(), null);
                 Set_Children(x, x.getLeft(), x.getMiddle(), null);
             }
             else{
                 Set_Children(x, x.getLeft(), x.getMiddle(), y.getLeft());
-                //delete node<T> y?
                 Set_Children(z, x, z.getRight(), null);
                 return z;
             }
         }
-        node<T> x = z.getMiddle();
+        internalNode<T> x = (internalNode<T>) z.getMiddle();
         if(x.getRight() != null){
             Set_Children(y, x.getRight(), y.getLeft(), null);
             Set_Children(x, x.getLeft(), x.getMiddle(), null);
         }
         else{
             Set_Children(x, x.getLeft(), x.getMiddle(), y.getLeft());
-            //delete node<T> y?
             Set_Children(z, z.getLeft(), x, null);
         }
         return z;
     }
 
-    public void Delete(node<T> x){
-        node<T> y = this.Search(null, x).getp();
+    public void Delete(internalNode<T> x){
+        internalNode<T> y = (internalNode<T>) this.Search(null, x).getp();
         if(keyEqual(x, y.getLeft()))
             Set_Children(y, y.getMiddle(), y.getRight(), null);
         else if(keyEqual(x, y.getMiddle())){
@@ -176,7 +185,7 @@ public abstract class twothreeTree<T extends RunnerID> {
         while(y != null){
             if(y.getMiddle() == null){
                 if(y != this.root)
-                    y = Borrow_Or_Merge(y);
+                    y = (internalNode<T>) Borrow_Or_Merge(y);
                 else {
                     this.root = y.getLeft();
                     y.getLeft().setp(null);
