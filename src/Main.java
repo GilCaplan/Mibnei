@@ -25,15 +25,14 @@ public class Main {
 
         Race race = new Race();
 
-        RunnerIDInt id1 = new RunnerIDInt(1);
-        RunnerIDInt id2 = new RunnerIDInt(3);
-        RunnerIDInt id3 = new RunnerIDInt(4);
-        RunnerIDInt id4 = new RunnerIDInt(7);
-        race.addRunner(id1);
-        race.addRunner(id2);
-        race.addRunner(id3);
-        race.addRunner(id4);
-
+//        RunnerIDInt id1 = new RunnerIDInt(3);
+//        RunnerIDInt id2 = new RunnerIDInt(5);
+//        race.addRunner(id1);
+//        race.addRunner(id2);
+        int[] runners = new int[]{1,3,5,7,14,19,22,25,29};
+        for (int j : runners) {
+            race.addRunner(new RunnerIDInt(j));
+        }
         printTree(race.getRoot(),"",true);
 //        race.removeRunner(id2);
 //        RunnerIDInt id;

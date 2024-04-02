@@ -274,6 +274,9 @@ public abstract class twothreeTree<T extends RunnerID> {
         if(y.getKey() instanceof Sentinal){
             return y.getKey().toString().equals("s+");
         }
+        if(x.getKey() instanceof Sentinal){
+            return !x.getKey().toString().equals("s+");
+        }
         if(x.getSecondaryKey().getF() != (float)-1){
             if(x.getKey().toString().equals(y.getKey().toString())){
                 return x.getKey().isSmaller(y.getKey());
