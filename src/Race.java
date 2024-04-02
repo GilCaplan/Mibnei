@@ -14,6 +14,9 @@ public class Race {
           // secondary key will be runner.getMin
           avgTree = new IDtree();//same thing
     }
+    public node<RunnerID> getRoot(){
+        return IDtree.getRoot();
+    }
     public void addRunner(RunnerID id)  {
         RunnerTree<RunnerID> runner = new RunnerTree<>(id);
         IDtree.Insert(runner);

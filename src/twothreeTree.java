@@ -3,6 +3,9 @@ public abstract class twothreeTree<T extends RunnerID> {
     public twothreeTree(){
         Init();
     }
+    public node<T> getRoot(){
+        return this.root;
+    }
 
     public void Init(){
         internalNode<T> x = new internalNode<>((T) new Sentinal("inf"));
@@ -15,8 +18,8 @@ public abstract class twothreeTree<T extends RunnerID> {
         x.setLeft(l);
         x.setMiddle(m);
         this.root = x;
-
-        printTree();
+        if(this instanceof IDtree)
+            printTree();
     }
 
     public node<T> Search(node<T> x, node<T> k)  {
@@ -27,14 +30,10 @@ public abstract class twothreeTree<T extends RunnerID> {
                 return x;
             return null;
         }
-        if (k.isSmaller((x).getLeft().getKey()) || k.getKey().equals(x.getLeft().getKey()))
-            return Search(x.getLeft(),k);
-        if(k.isSmaller(x.getMiddle().getKey()) || k.getKey().equals(x.getMiddle().getKey()))
+        if(checkSmaller(k, x.getLeft()) || keyEqual(x.getLeft(), k))
+            return Search(x.getLeft(), k);
+        if(checkSmaller(k, x.getMiddle()) || keyEqual(x.getMiddle(), k))
             return Search(x.getMiddle(), k);
-//        if(checkSmaller(k, x.getLeft()) || keyEqual(x.getLeft(), k))
-//            return Search(x.getLeft(), k);
-//        if(checkSmaller(k, x.getMiddle()) || keyEqual(x.getMiddle(), k))
-//            return Search(x.getMiddle(), k);
         return Search(x.getRight(), k);
     }
 
@@ -66,7 +65,7 @@ public abstract class twothreeTree<T extends RunnerID> {
         node<T> l = x.getLeft();
         node<T> m = x.getMiddle();
         node<T> r = x.getRight();
-        if(r == null){//check both ways incase off a sentinal
+        if(r == null){
             if(checkSmaller(z, l))
                 Set_Children(x, z, l, m);
             else if(checkSmaller(z, m))
@@ -128,7 +127,7 @@ public abstract class twothreeTree<T extends RunnerID> {
             Set_Children(w, x, z, null);
             this.root = w;
         }
-        printTree();
+//        printTree();
     }
 
     public node<T> Borrow_Or_Merge(internalNode<T> y){
