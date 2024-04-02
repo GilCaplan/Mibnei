@@ -114,7 +114,7 @@ public abstract class twothreeTree<T extends RunnerID> {
         }
         internalNode<T> x = (internalNode<T>) y.getp();
         z = Insert_And_Split(x, z);
-        while(!x.equals(this.root)){
+        while(x != this.root){
             x = (internalNode<T>) x.getp();
             if(z != null)
                 z = Insert_And_Split(x, z);
@@ -268,11 +268,6 @@ public abstract class twothreeTree<T extends RunnerID> {
             printNode(internal.getLeft(), depth + 1);
             printNode(internal.getMiddle(), depth + 1);
             printNode(internal.getRight(), depth + 1);
-        } else if (n instanceof leaf) {
-            for (int i = 0; i < depth + 1; i++) {
-                System.out.print("  ");
-            }
-            System.out.println("|"+depth+"|-- " + n.getKey());
         }
     }
     public boolean checkSmaller(node<T> x, node<T> y){
