@@ -43,7 +43,7 @@ public class Main {
             id = new RunnerIDInt(j);
             for(float time: run_times)
                 race.addRunToRunner(id, time);
-            System.out.println("The min running time of" + id.toString() + "is " + race.getMinRun(id));
+            System.out.println("The min running time of " + id + " is " + race.getMinRun(id));
 
         }
 //        race.addRunToRunner(id1, (float)118.0);

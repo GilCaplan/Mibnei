@@ -5,7 +5,6 @@ public abstract class node<T extends RunnerID> implements Key<T>{
     private node<T> right;
     private T key;
     private myFloat skey;
-    private T id;
     private int size=0;
 
     public void setSize(int size) {

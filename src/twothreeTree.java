@@ -248,9 +248,8 @@ public abstract class twothreeTree<T extends RunnerID> {
             return !x.getKey().toString().equals("s+");
         }
         if(x.getSecondaryKey().getF() != (float)-1){
-            if(x.getKey().toString().equals(y.getKey().toString())){
+            if(x.getSecondaryKey().getF() == y.getSecondaryKey().getF())
                 return x.getKey().isSmaller(y.getKey());
-            }
             return x.getSecondaryKey().getF() < y.getSecondaryKey().getF();
         }
         return x.getKey().isSmaller(y.getKey());
@@ -258,7 +257,10 @@ public abstract class twothreeTree<T extends RunnerID> {
     public boolean keyEqual(node<T> x, node<T> y){
         if (x.getKey() instanceof Sentinal || y.getKey() instanceof Sentinal)
             return false;
-        return x.getKey().toString().equals(y.getKey().toString());// && x.getSecondaryKey() == y.getSecondaryKey();
+        if(x.getSecondaryKey().getF() != (float)-1){//only comparing the Secondary keys
+            return x.getSecondaryKey().getF() == y.getSecondaryKey().getF();
+        }
+        return x.getKey().toString().equals(y.getKey().toString());
     }
 
     public void printTree(node<T> root, String prefix, boolean isTail) {
