@@ -27,6 +27,9 @@ public class RunnerTree<T extends RunnerID> extends leaf<T> {
         this.prevAvgTime = new myFloat(0);
     }
     public void Insert(node<myFloat> z){
+        if (id == null || z.getKey().getF() < 0) {
+            throw new IllegalArgumentException();
+        }
         this.runs.Insert(z);
         if (len > 0)
             this.minTime = this.runs.Minimum().getKey();
@@ -54,7 +57,7 @@ public class RunnerTree<T extends RunnerID> extends leaf<T> {
 
     public myFloat getAvgRun(){
         if(len < 1)
-            return new myFloat(0);
+            return new myFloat(Float.MAX_VALUE);
         return avgTime;
     }
 

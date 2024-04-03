@@ -17,6 +17,8 @@ public class Race {
     }
     public void addRunner(RunnerID id)  {
         RunnerTree<RunnerID> runner = new RunnerTree<>(id);
+        if(IDtree.Search(null, runner) != null)
+            throw new IllegalArgumentException();
         IDtree.Insert(runner);
         minTree.Insert(new minRunner(runner));
         avgTree.Insert(new avgRunner(runner));
@@ -40,7 +42,7 @@ public class Race {
 
     public void removeRunFromRunner(RunnerID id, float time) {
         RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
-        runner.Delete(new leaf<>(new myFloat(time)));
+        runner.Delete(new internalNode<>(new myFloat(time)));
         fixMinAvgRuns(id, runner);
     }
 
@@ -57,10 +59,14 @@ public class Race {
     public float getMinRun(RunnerID id)
     {
         RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
+        if(runner == null)
+            throw new IllegalArgumentException();
         return runner.getMinTime().getF();
     }
     public float getAvgRun(RunnerID id){
         RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
+        if(runner == null)
+            throw new IllegalArgumentException();
         return runner.getAvgRun().getF();
     }
 

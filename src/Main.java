@@ -73,4 +73,8 @@ public class Main {
             System.out.println(prefix + (isTail ? "└── : " : "├── : ") + root.getKey());
         }
     }
+
+    public static void printTree(node<RunnerID> root) {
+        printTree(root, "", true);
+    }
 }

@@ -126,7 +126,6 @@ public abstract class twothreeTree<T extends RunnerID> {
             Set_Children(w, x, z, null);
             this.root = w;
         }
-//        printTree();
     }
 
     public node<T> Borrow_Or_Merge(internalNode<T> y){
@@ -172,6 +171,8 @@ public abstract class twothreeTree<T extends RunnerID> {
 
     public void Delete(internalNode<T> x) {
         node<T> z = this.Search(null, x);
+        if(z == null)
+            throw new IllegalArgumentException();
         internalNode<T> y = (internalNode<T>) z.getp();
         if(keyEqual(x, y.getLeft()))
             Set_Children(y, y.getMiddle(), y.getRight(), null);
@@ -220,7 +221,7 @@ public abstract class twothreeTree<T extends RunnerID> {
         x = x.getMiddle();
         if(!(x.getKey() instanceof Sentinal))
             return x;
-        throw new IllegalArgumentException("T is empty");
+        throw new IllegalArgumentException();
     }
 
     public node<T> Successor(node<T> x){//fix later
