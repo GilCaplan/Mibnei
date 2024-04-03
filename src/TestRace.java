@@ -1,22 +1,23 @@
 public class TestRace
 {
     public static void main(String[] args) {
-//        test1();
-//        test2();
-//        test3();
-//        test4();
-//        test5();
-//        testAddRunner();
-//        testRemoveRunner();
-//        testAddRunToRunner();
-//        testRemoveRunFromRunner();
-//        testGetMinRun();
-//        testGetAvgRun();
-//        testGetFastestRunnerAvg();
-//        testGetFastestRunnerMin();
+        System.out.println("starting to test:");
+        test1();
+        test2();
+        test3();
+        test4();
+        test5();
+        testAddRunner();
+        testRemoveRunner();
+        testAddRunToRunner();
+        testRemoveRunFromRunner();
+        testGetMinRun();
+        testGetAvgRun();
+        testGetFastestRunnerAvg();
+        testGetFastestRunnerMin();
         testGetRankAvg();
-//        testGetRankMin();
-
+        testGetRankMin();
+        System.out.println("finished testing");
 
     }
     public static void testGetRankMin() {
@@ -109,8 +110,12 @@ public class TestRace
         Race race = new Race();
         race.init();
         System.out.println("--- test 1: no runners ---");
-        System.out.println("value: " + race.getFastestRunnerAvg());
-
+        try {
+            System.out.println("value: " + race.getFastestRunnerAvg());
+        }
+        catch (IllegalArgumentException ae){
+            System.out.println("caught");
+        }
         System.out.println("--- test 2: no runs ---");
         RunnerID id2 = new RunnerIDInt(2);
         race.addRunner(id2);
@@ -374,8 +379,12 @@ public class TestRace
 //        Main.printTree(race.getAvgTree());
 
         race.removeRunFromRunner(id1, 1);
-        race.addRunToRunner(id3, -9);
-
+        try {
+            race.addRunToRunner(id3, -9);
+        }
+        catch (IllegalArgumentException ae){
+            System.out.println("caught");
+        }
 
         race.removeRunFromRunner(id2, 4);
         race.removeRunFromRunner(id2, 4);
@@ -394,7 +403,12 @@ public class TestRace
         RunnerID id1 = new RunnerIDInt(3);
         race.addRunner(id1);
         RunnerID id2 = new RunnerIDInt(3);
-        race.addRunner(id2);
+        try {
+            race.addRunner(id2);
+        }
+        catch (IllegalArgumentException ae){
+            System.out.println("caught");
+        }
     }
 
     public static void test2() {
@@ -405,7 +419,12 @@ public class TestRace
         RunnerID id = new RunnerIDInt(3);
 
         race.addRunner(id);
-        race.addRunner(id);
+        try {
+            race.addRunner(id);
+        }
+        catch (IllegalArgumentException ae){
+            System.out.println("caught");
+        }
     }
 
     public static void test1() {
@@ -437,12 +456,12 @@ public class TestRace
         try {
             System.out.println("The average time is: " + race.getAvgRun(id) + "\n");
         } catch (IllegalArgumentException iae) {
-
+            System.out.println("caught");
         }
         try {
             System.out.println("The minimum time is: " + race.getMinRun(id) + "\n");
         } catch (IllegalArgumentException iae) {
-
+            System.out.println("caught");
         }
     }
 }
