@@ -1,4 +1,4 @@
-public class myFloat extends RunnerID implements Key<myFloat> {
+public class myFloat extends RunnerID {
     private float key;
     public myFloat(float key){
         this.key = key;
@@ -8,24 +8,12 @@ public class myFloat extends RunnerID implements Key<myFloat> {
         return key;
     }
 
-    @Override
     public myFloat getKey() {
         return new myFloat(key);
     }
 
-    @Override
     public void setKey(myFloat k) {
-
-    }
-
-    @Override
-    public myFloat getSecondaryKey() {
-        return new myFloat(0);
-    }
-
-    @Override
-    public boolean isSmaller(myFloat other) {
-        return this.key < other.key;
+        this.key = k.key;
     }
 
     @Override

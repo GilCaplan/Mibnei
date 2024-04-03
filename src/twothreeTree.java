@@ -37,11 +37,12 @@ public abstract class twothreeTree<T extends RunnerID> {
 
 
     public void Update_Key(internalNode<T> x){
-        x.setKey(x.getLeft().getKey());
-        if(x.getMiddle() != null)
-            x.setKey(x.getMiddle().getKey());
+        x.setKey(x.getLeft().getKey(), x.getLeft().getSecondaryKey());
+        if(x.getMiddle() != null) {
+            x.setKey(x.getMiddle().getKey(), x.getMiddle().getSecondaryKey());
+        }
         if(x.getRight() != null)
-            x.setKey(x.getRight().getKey());
+            x.setKey(x.getRight().getKey(), x.getRight().getSecondaryKey());
     }
 
     public void Set_Children(internalNode<T> x, node<T> l, node<T> m, node<T> r){
@@ -267,10 +268,10 @@ public abstract class twothreeTree<T extends RunnerID> {
         if (root instanceof internalNode<T>) {
 //            System.out.println(prefix + (isTail ? "└── InnerNode with key: " : "├── InnerNode with key: ") + root.key+", size: "+root.getSize());
             System.out.println(prefix + (isTail ? "└──" : "├── "));
-            internalNode<RunnerID> innerNode = (internalNode<RunnerID>) root;
-            printTree((node<T>) innerNode.getLeft(), prefix + (isTail ? "    " : "│   "), false);
-            printTree((node<T>) innerNode.getMiddle(), prefix + (isTail ? "    " : "│   "), false);
-            printTree((node<T>) innerNode.getRight(), prefix + (isTail ? "    " : "│   "), true);
+            internalNode<T> innerNode = (internalNode<T>) root;
+            printTree(innerNode.getLeft(), prefix + (isTail ? "    " : "│   "), false);
+            printTree(innerNode.getMiddle(), prefix + (isTail ? "    " : "│   "), false);
+            printTree(innerNode.getRight(), prefix + (isTail ? "    " : "│   "), true);
         } else if (root instanceof leaf<T>) {
 //            System.out.println(prefix + (isTail ? "└── Leaf with key: " : "├── Leaf with key: ") + root.key+", size: "+root.getSize());
             System.out.println(prefix + (isTail ? "└── : " : "├── : ") + root.getKey());

@@ -80,8 +80,8 @@ public class Race {
     }
 
     public void fixMinAvgRuns(RunnerID id, RunnerTree<RunnerID> runner){
-        minTree.Delete(new internalNode<>(id, runner.getMinTime()));//check that found properly
-        avgTree.Delete(new internalNode<>(id, runner.getAvgRun()));
+        minTree.Delete(new internalNode<>(id, runner.getPrevTime()));//check that found properly
+        avgTree.Delete(new internalNode<>(id, runner.getPrevTime()));
         minTree.Insert(new minRunner(runner));
         avgTree.Insert(new avgRunner(runner));
     }

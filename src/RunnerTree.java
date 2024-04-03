@@ -1,6 +1,11 @@
 public class RunnerTree<T extends RunnerID> extends leaf<T> {
     private twothreeTree<myFloat> runs;
     private myFloat minTime;
+    private myFloat prevTime;
+
+    public void setPrevTime(myFloat prevTime) {
+        this.prevTime = prevTime;
+    }
 
     private final RunnerID id;
     private int len;
@@ -10,7 +15,8 @@ public class RunnerTree<T extends RunnerID> extends leaf<T> {
         super((T) i);
         this.id = i;
         runs = new Runner2_3Tree();
-        this.minTime = new myFloat(Float.MIN_VALUE);
+        this.minTime = new myFloat(Float.MAX_VALUE);
+        this.prevTime = new myFloat(Float.MAX_VALUE);
     }
     public void Insert(node<myFloat> z){
         this.runs.Insert(z);
@@ -34,6 +40,7 @@ public class RunnerTree<T extends RunnerID> extends leaf<T> {
     public myFloat getMinTime() {
         return minTime;
     }
+    public myFloat getPrevTime(){return prevTime;}
 
     public myFloat getAvgRun(){return new myFloat((float) sumTime / len);}
 
