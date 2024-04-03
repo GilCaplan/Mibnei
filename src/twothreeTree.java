@@ -194,6 +194,7 @@ public abstract class twothreeTree<T extends RunnerID> {
             }
             else{
                 Update_Key(y);
+                UpdateSize(y);
                 y = (internalNode<T>) y.getp();
             }
         }
@@ -201,14 +202,14 @@ public abstract class twothreeTree<T extends RunnerID> {
 
     public int Rank(node<T> x){
         int rank = 1;
-        node<T> y = x.getp();
+        internalNode<T> y = (internalNode<T>) x.getp();
         while(y != null){
             if(x == y.getMiddle())
                 rank = rank + y.getLeft().getSize();
             else if(x == y.getRight())
                 rank += y.getLeft().getSize() + y.getMiddle().getSize();
             x = y;
-            y = y.getp();
+            y = (internalNode<T>) y.getp();
         }
         return rank;
     }

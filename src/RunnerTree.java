@@ -22,9 +22,9 @@ public class RunnerTree<T extends RunnerID> extends leaf<T> {
         runs = new Runner2_3Tree();
         this.minTime = new myFloat(Float.MAX_VALUE);
         this.prevMinTime = new myFloat(Float.MAX_VALUE);
-        this.avgTime = new myFloat(0);
-        this.avgTime = new myFloat(0);
-        this.prevAvgTime = new myFloat(0);
+        this.avgTime = new myFloat(Float.MAX_VALUE);
+        this.avgTime = new myFloat(Float.MAX_VALUE);
+        this.prevAvgTime = new myFloat(Float.MAX_VALUE);
     }
     public void Insert(node<myFloat> z){
         if (id == null || z.getKey().getF() < 0) {
