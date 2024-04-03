@@ -1,6 +1,7 @@
 public class RunnerTree<T extends RunnerID> extends leaf<T> {
     private twothreeTree<myFloat> runs;
     private myFloat minTime;
+    private myFloat avgTime;
     private myFloat prevMinTime;
     private myFloat prevAvgTime;
 
@@ -20,7 +21,9 @@ public class RunnerTree<T extends RunnerID> extends leaf<T> {
         this.id = i;
         runs = new Runner2_3Tree();
         this.minTime = new myFloat(Float.MAX_VALUE);
-        this.prevAvgTime = new myFloat(Float.MAX_VALUE);
+        this.avgTime = new myFloat(0);
+        this.avgTime = new myFloat(0);
+        this.prevAvgTime = new myFloat(0);
     }
     public void Insert(node<myFloat> z){
         this.runs.Insert(z);
@@ -31,7 +34,7 @@ public class RunnerTree<T extends RunnerID> extends leaf<T> {
         len++;
         sumTime += z.getKey().getF();
     }
-    public void Delete(node<myFloat> z){
+    public void Delete(node<myFloat> z) throws Exception {
         this.runs.Delete((internalNode<myFloat>) z);
         len--;
         sumTime -= z.getKey().getF();
@@ -47,7 +50,13 @@ public class RunnerTree<T extends RunnerID> extends leaf<T> {
     public myFloat getPrevMinTime(){return prevMinTime;}
     public myFloat getPrevAvgTime(){return prevAvgTime;}
 
-    public myFloat getAvgRun(){return new myFloat(sumTime / len);}
+    public myFloat getAvgRun(){
+        if(len < 1)
+            return new myFloat(0);
+        return new myFloat(sumTime / len);
+    }
+
+    public myFloat updateAvgRun(){return this.avgTime = new myFloat(sumTime / len);}
 
     public RunnerID getId() {
         return id;

@@ -167,9 +167,11 @@ public abstract class twothreeTree<T extends RunnerID> {
         return z;
     }
 
-    public void Delete(internalNode<T> x){
+    public void Delete(internalNode<T> x) throws Exception {
         node<T> z = this.Search(null, x);
-        internalNode<T> y = (internalNode<T>) this.Search(null, x).getp();
+        if(z == null)
+            throw new Exception("couldn't find node to delete in tree");
+        internalNode<T> y = (internalNode<T>) z.getp();
         if(keyEqual(x, y.getLeft()))
             Set_Children(y, y.getMiddle(), y.getRight(), null);
         else if(keyEqual(x, y.getMiddle())){
@@ -248,7 +250,7 @@ public abstract class twothreeTree<T extends RunnerID> {
         if(x.getKey() instanceof Sentinal){
             return !x.getKey().toString().equals("s+");
         }
-        if(x.getSecondaryKey().getF() != (float)-1){
+        if(x.getSecondaryKey() != null && x.getSecondaryKey().getF() != (float)-1){
             if(x.getSecondaryKey().getF() == y.getSecondaryKey().getF())
                 return x.getKey().isSmaller(y.getKey());
             return x.getSecondaryKey().getF() < y.getSecondaryKey().getF();
@@ -258,23 +260,21 @@ public abstract class twothreeTree<T extends RunnerID> {
     public boolean keyEqual(node<T> x, node<T> y){
         if (x.getKey() instanceof Sentinal || y.getKey() instanceof Sentinal)
             return false;
-        if(x.getSecondaryKey().getF() != (float)-1){//only comparing the Secondary keys
-            return x.getSecondaryKey().getF() == y.getSecondaryKey().getF();
+        if(x.getSecondaryKey() != null && y.getSecondaryKey() != null && x.getSecondaryKey().getF() != (float)-1){//only comparing the Secondary keys
+            return x.getSecondaryKey().getF() == y.getSecondaryKey().getF() && x.getKey().toString().equals(y.getKey().toString());
         }
         return x.getKey().toString().equals(y.getKey().toString());
     }
 
     public void printTree(node<T> root, String prefix, boolean isTail) {
         if (root instanceof internalNode<T>) {
-//            System.out.println(prefix + (isTail ? "└── InnerNode with key: " : "├── InnerNode with key: ") + root.key+", size: "+root.getSize());
             System.out.println(prefix + (isTail ? "└──" : "├── "));
             internalNode<T> innerNode = (internalNode<T>) root;
             printTree(innerNode.getLeft(), prefix + (isTail ? "    " : "│   "), false);
             printTree(innerNode.getMiddle(), prefix + (isTail ? "    " : "│   "), false);
             printTree(innerNode.getRight(), prefix + (isTail ? "    " : "│   "), true);
         } else if (root instanceof leaf<T>) {
-//            System.out.println(prefix + (isTail ? "└── Leaf with key: " : "├── Leaf with key: ") + root.key+", size: "+root.getSize());
-            System.out.println(prefix + (isTail ? "└── : " : "├── : ") + root.getKey());
+            System.out.println(prefix + (isTail ? "└── : " : "├── : ") + root);
         }
     }
 }

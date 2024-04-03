@@ -37,7 +37,7 @@ public abstract class node<T extends RunnerID> implements Key<T>{
     }
     @Override
     public String toString(){
-        if(this.getSecondaryKey().getF() == -1)
+        if(this.getSecondaryKey() == null || this.getSecondaryKey().getF() == -1)
             return this.getKey().toString();
         return this.getKey().toString()+", "+this.getSecondaryKey().toString();
     }

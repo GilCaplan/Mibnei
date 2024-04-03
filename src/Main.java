@@ -19,7 +19,7 @@ class RunnerIDInt extends RunnerID{
 
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         // The ids which we will check will not necessarily be RunnerIDInt
         // This is just for the example
 
@@ -38,12 +38,15 @@ public class Main {
         printTree(race.getRoot(),"",true);
 
         RunnerIDInt id;
-        float[] run_times = new float[]{(float)0.5, (float)1.5, (float)4.5, 5, 6, (float)8.8, 9, 2};
+        float[] run_times = new float[]{(float)1, (float)2, (float)3, 1, 3, (float)2, 2, 2};
         for (int j : runners) {
             id = new RunnerIDInt(j);
             for(float time: run_times)
                 race.addRunToRunner(id, time);
+            System.out.println();
             System.out.println("The min running time of " + id + " is " + race.getMinRun(id));
+            System.out.println("The avg running time of " + id + " is " + race.getAvgRun(id));
+            System.out.println();
 
         }
 //        race.addRunToRunner(id1, (float)118.0);
