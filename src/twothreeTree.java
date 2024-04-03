@@ -140,6 +140,7 @@ public abstract class twothreeTree<T extends RunnerID> {
             else{
                 Set_Children(x, y.getLeft(), x.getLeft(), x.getMiddle());
                 Set_Children(z, x, z.getRight(), null);
+                y = new internalNode<>(null);
             }
             return z;
         }
@@ -151,9 +152,10 @@ public abstract class twothreeTree<T extends RunnerID> {
             }
             else{
                 Set_Children(x, x.getLeft(), x.getMiddle(), y.getLeft());
+                y = new internalNode<>(null);
                 Set_Children(z, x, z.getRight(), null);
-                return z;
             }
+            return z;
         }
         internalNode<T> x = (internalNode<T>) z.getMiddle();
         if(x.getRight() != null){
@@ -162,6 +164,7 @@ public abstract class twothreeTree<T extends RunnerID> {
         }
         else{
             Set_Children(x, x.getLeft(), x.getMiddle(), y.getLeft());
+            y = new internalNode<>(null);
             Set_Children(z, z.getLeft(), x, null);
         }
         return z;

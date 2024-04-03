@@ -39,7 +39,7 @@ public class RunnerTree<T extends RunnerID> extends leaf<T> {
             this.minTime = z.getKey();
         len++;
         sumTime += z.getKey().getF();
-        avgTime = new myFloat(sumTime/len);
+        avgTime = new myFloat(sumTime / len);
     }
     public void Delete(node<myFloat> z) throws Exception {
         this.runs.Delete((internalNode<myFloat>) z);
@@ -60,7 +60,7 @@ public class RunnerTree<T extends RunnerID> extends leaf<T> {
     public myFloat getAvgRun(){
         if(len < 1)
             return new myFloat(0);
-        return new myFloat(sumTime / len);
+        return avgTime;
     }
 
     public myFloat updateAvgRun(){return this.avgTime = new myFloat(sumTime / len);}

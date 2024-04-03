@@ -37,7 +37,7 @@ public class Main {
         Random random = new Random(99);
         DecimalFormat df = new DecimalFormat("#.##");
 
-        int r = 2;
+        int r = 10;
         float[] run_times = new float[r];
         RunnerIDInt id;
         for (int j : runners) {
