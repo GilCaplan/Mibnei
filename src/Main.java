@@ -33,18 +33,19 @@ public class Main {
         for (int j : runners) {
             race.addRunner(new RunnerIDInt(j));
         }
+//        race.removeRunner(new RunnerIDInt(5));
+//        race.removeRunner(new RunnerIDInt(19));
         printTree(race.getRoot(),"",true);
-        race.removeRunner(new RunnerIDInt(5));
-        printTree(race.getRoot(),"",true);
-//        RunnerIDInt id;
-//        float[] run_times = new float[]{(float)0.5, (float)1.5, (float)4.5, 5, 6, (float)8.8, 9, 2};
-//        for (int j : runners) {
-//            id = new RunnerIDInt(j);
-//            for(float time: run_times)
-//                race.addRunToRunner(id, time);
-//            System.out.println("The min running time of" + id.toString() + "is " + race.getMinRun(id));
-//
-//        }
+
+        RunnerIDInt id;
+        float[] run_times = new float[]{(float)0.5, (float)1.5, (float)4.5, 5, 6, (float)8.8, 9, 2};
+        for (int j : runners) {
+            id = new RunnerIDInt(j);
+            for(float time: run_times)
+                race.addRunToRunner(id, time);
+            System.out.println("The min running time of" + id.toString() + "is " + race.getMinRun(id));
+
+        }
 //        race.addRunToRunner(id1, (float)118.0);
 //        System.out.println("The min running time of" + id2.toString() + "is " + race.getMinRun(id2));
 //        System.out.println("The avg running time of" + id1.toString() + "is " + race.getAvgRun(id1));
