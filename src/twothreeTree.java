@@ -215,7 +215,7 @@ public abstract class twothreeTree<T extends RunnerID> {
         while(!(x.getLeft() instanceof leaf))//x is not a leaf
             x = x.getLeft();
 
-        x = x.getp().getMiddle();
+        x = x.getMiddle();
         if(!(x.getKey() instanceof Sentinal))
             return x;
         throw new IllegalArgumentException("T is empty");
@@ -259,6 +259,20 @@ public abstract class twothreeTree<T extends RunnerID> {
         if (x.getKey() instanceof Sentinal || y.getKey() instanceof Sentinal)
             return false;
         return x.getKey().toString().equals(y.getKey().toString());// && x.getSecondaryKey() == y.getSecondaryKey();
+    }
+
+    public void printTree(node<T> root, String prefix, boolean isTail) {
+        if (root instanceof internalNode<T>) {
+//            System.out.println(prefix + (isTail ? "└── InnerNode with key: " : "├── InnerNode with key: ") + root.key+", size: "+root.getSize());
+            System.out.println(prefix + (isTail ? "└──" : "├── "));
+            internalNode<RunnerID> innerNode = (internalNode<RunnerID>) root;
+            printTree((node<T>) innerNode.getLeft(), prefix + (isTail ? "    " : "│   "), false);
+            printTree((node<T>) innerNode.getMiddle(), prefix + (isTail ? "    " : "│   "), false);
+            printTree((node<T>) innerNode.getRight(), prefix + (isTail ? "    " : "│   "), true);
+        } else if (root instanceof leaf<T>) {
+//            System.out.println(prefix + (isTail ? "└── Leaf with key: " : "├── Leaf with key: ") + root.key+", size: "+root.getSize());
+            System.out.println(prefix + (isTail ? "└── : " : "├── : ") + root.getKey());
+        }
     }
 }
 

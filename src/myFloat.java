@@ -25,16 +25,16 @@ public class myFloat extends RunnerID implements Key<myFloat> {
 
     @Override
     public boolean isSmaller(myFloat other) {
-        return false;
+        return this.key < other.key;
     }
 
     @Override
     public boolean isSmaller(RunnerID other) {
-        return false;
+        return this.key < ((myFloat)other).key;
     }
 
     @Override
     public String toString() {
-        return null;
+        return String.valueOf(this.key);
     }
 }
