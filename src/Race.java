@@ -22,7 +22,7 @@ public class Race {
         avgTree.Insert(new avgRunner(runner));
     }
 
-    public void removeRunner(RunnerID id) throws Exception//* need to fix, how to delete from min, avg Tree
+    public void removeRunner(RunnerID id)//* need to fix, how to delete from min, avg Tree
     {
         RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
         IDtree.Delete(new internalNode<>(id));
@@ -30,7 +30,7 @@ public class Race {
         avgTree.Delete(new internalNode<>(id, runner.getAvgRun()));
     }
 
-    public void addRunToRunner(RunnerID id, float time) throws Exception {
+    public void addRunToRunner(RunnerID id, float time) {
         //we added the runner object as a shallow copy so we need to delete and then re-add it
         //this will hold to the log(n) since each action is log(n) in parallel
         RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
@@ -38,7 +38,7 @@ public class Race {
         fixMinAvgRuns(id, runner);
     }
 
-    public void removeRunFromRunner(RunnerID id, float time) throws Exception {
+    public void removeRunFromRunner(RunnerID id, float time) {
         RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
         runner.Delete(new leaf<>(new myFloat(time)));
         fixMinAvgRuns(id, runner);
@@ -76,7 +76,7 @@ public class Race {
         return minTree.Rank(runner);
     }
 
-    public void fixMinAvgRuns(RunnerID id, RunnerTree<RunnerID> runner) throws Exception {
+    public void fixMinAvgRuns(RunnerID id, RunnerTree<RunnerID> runner) {
         minTree.Delete(new internalNode<>(id, runner.getPrevMinTime()));//check that found properly
         runner.setPrevMinTime(runner.getMinTime());
         avgTree.Delete(new internalNode<>(id, runner.getPrevAvgTime()));

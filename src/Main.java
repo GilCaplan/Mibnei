@@ -22,7 +22,7 @@ class RunnerIDInt extends RunnerID{
 
 
 public class Main {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         // The ids which we will check will not necessarily be RunnerIDInt
         // This is just for the example
 
@@ -34,7 +34,7 @@ public class Main {
         }
 
         printTree(race.getRoot(),"",true);
-        Random random = new Random(99);
+        Random random = new Random(66);
         DecimalFormat df = new DecimalFormat("#.##");
 
         int r = 10;
@@ -54,7 +54,10 @@ public class Main {
 
         }
 
-        //System.out.println("The runner with the smallest minimum time is "+ race.getFastestRunnerMin());
+        System.out.println("The runner with the smallest minimum time is "+ race.getFastestRunnerMin());
+        System.out.println("The runner with the smallest minimum time is "+ race.getFastestRunnerAvg());
+        System.out.println(race.getRankMin(new RunnerIDInt(2)));
+        System.out.println(race.getRankAvg(new RunnerIDInt(5)));
     }
 
     public static void printTree(node<RunnerID> root, String prefix, boolean isTail) {

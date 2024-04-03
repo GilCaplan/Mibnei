@@ -170,10 +170,8 @@ public abstract class twothreeTree<T extends RunnerID> {
         return z;
     }
 
-    public void Delete(internalNode<T> x) throws Exception {
+    public void Delete(internalNode<T> x) {
         node<T> z = this.Search(null, x);
-        if(z == null)
-            throw new Exception("couldn't find node to delete in tree");
         internalNode<T> y = (internalNode<T>) z.getp();
         if(keyEqual(x, y.getLeft()))
             Set_Children(y, y.getMiddle(), y.getRight(), null);
@@ -182,7 +180,6 @@ public abstract class twothreeTree<T extends RunnerID> {
         }
         else {
             Set_Children(y, y.getLeft(), y.getMiddle(), null);
-            //delete node<T> x?
         }
         while(y != null){
             if(y.getMiddle() == null){
@@ -191,7 +188,6 @@ public abstract class twothreeTree<T extends RunnerID> {
                 else {
                     this.root = y.getLeft();
                     y.getLeft().setp(null);
-                    //delete y?
                     return;
                 }
             }
