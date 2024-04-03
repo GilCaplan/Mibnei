@@ -15,12 +15,18 @@ public class RunnerTree<T extends RunnerID> extends leaf<T> {
     private final RunnerID id;
     private int len;
     private float sumTime;
+
+    public int getLen() {
+        return len;
+    }
+
     //left to do, implement extra attributes to Treekey that saves min, avg run of runner
     public RunnerTree(RunnerID i){
         super((T) i);
         this.id = i;
         runs = new Runner2_3Tree();
         this.minTime = new myFloat(Float.MAX_VALUE);
+        this.prevMinTime = new myFloat(Float.MAX_VALUE);
         this.avgTime = new myFloat(0);
         this.avgTime = new myFloat(0);
         this.prevAvgTime = new myFloat(0);
@@ -33,6 +39,7 @@ public class RunnerTree<T extends RunnerID> extends leaf<T> {
             this.minTime = z.getKey();
         len++;
         sumTime += z.getKey().getF();
+        avgTime = new myFloat(sumTime/len);
     }
     public void Delete(node<myFloat> z) throws Exception {
         this.runs.Delete((internalNode<myFloat>) z);

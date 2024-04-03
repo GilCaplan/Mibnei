@@ -35,14 +35,12 @@ public class Race {
         //this will hold to the log(n) since each action is log(n) in parallel
         RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
         runner.Insert(new leaf<>(new myFloat(time)));
-
         fixMinAvgRuns(id, runner);
     }
 
     public void removeRunFromRunner(RunnerID id, float time) throws Exception {
         RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
         runner.Delete(new leaf<>(new myFloat(time)));
-
         fixMinAvgRuns(id, runner);
     }
 

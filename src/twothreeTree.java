@@ -237,8 +237,6 @@ public abstract class twothreeTree<T extends RunnerID> {
             y = z.getRight();
         while(!(y.getLeft() instanceof leaf))//y is not a leaf
             y = y.getLeft();
-        //if(y.isSmaller(new Sentinal()))
-        //    return y;
         return null;
     }
 
@@ -265,11 +263,14 @@ public abstract class twothreeTree<T extends RunnerID> {
         }
         return x.getKey().toString().equals(y.getKey().toString());
     }
-
+    public void printTree(node<T> root){
+        printTree(root, "", true);
+    }
     public void printTree(node<T> root, String prefix, boolean isTail) {
         if (root instanceof internalNode<T>) {
-            System.out.println(prefix + (isTail ? "└──" : "├── "));
             internalNode<T> innerNode = (internalNode<T>) root;
+            System.out.println(prefix + (isTail ? "└──" : "├── "));
+            System.out.println(prefix + innerNode);
             printTree(innerNode.getLeft(), prefix + (isTail ? "    " : "│   "), false);
             printTree(innerNode.getMiddle(), prefix + (isTail ? "    " : "│   "), false);
             printTree(innerNode.getRight(), prefix + (isTail ? "    " : "│   "), true);
