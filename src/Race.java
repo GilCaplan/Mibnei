@@ -9,10 +9,10 @@ public class Race {
     }
     public void init() {
           IDtree = new IDtree();
-          minTree = new IDtree();
+//          minTree = new IDtree();
           //make separate tree class that's a wrapper class, implements getKey
           // secondary key will be runner.getMin
-          avgTree = new IDtree();//same thing
+//          avgTree = new IDtree();//same thing
     }
     public node<RunnerID> getRoot(){
         return IDtree.getRoot();
@@ -20,16 +20,16 @@ public class Race {
     public void addRunner(RunnerID id)  {
         RunnerTree<RunnerID> runner = new RunnerTree<>(id);
         IDtree.Insert(runner);
-        minTree.Insert(new minRunner(runner));
-        avgTree.Insert(new avgRunner(runner));
+//        minTree.Insert(new minRunner(runner));
+//        avgTree.Insert(new avgRunner(runner));
     }
 
     public void removeRunner(RunnerID id)//* need to fix, how to delete from min, avg Tree
     {
         RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
         IDtree.Delete(new internalNode<>(id));
-        minTree.Delete(new internalNode<>(id, runner.getMinTime()));
-        avgTree.Delete(new internalNode<>(id, runner.getAvgRun()));
+//        minTree.Delete(new internalNode<>(id, runner.getMinTime()));
+//        avgTree.Delete(new internalNode<>(id, runner.getAvgRun()));
     }
 
     public void addRunToRunner(RunnerID id, float time) {
@@ -38,7 +38,7 @@ public class Race {
         RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
         runner.Insert(new leaf<>(new myFloat(time)));
 
-        fixMinAvgRuns(id, runner);
+//        fixMinAvgRuns(id, runner);
     }
 
     public void removeRunFromRunner(RunnerID id, float time)
@@ -46,7 +46,7 @@ public class Race {
         RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
         runner.Delete(new leaf<>(new myFloat(time)));
 
-        fixMinAvgRuns(id, runner);
+//        fixMinAvgRuns(id, runner);
     }
 
     public RunnerID getFastestRunnerAvg()

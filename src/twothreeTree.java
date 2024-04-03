@@ -167,6 +167,7 @@ public abstract class twothreeTree<T extends RunnerID> {
     }
 
     public void Delete(internalNode<T> x){
+        var search = this.Search(null, x);
         internalNode<T> y = (internalNode<T>) this.Search(null, x).getp();
         if(keyEqual(x, y.getLeft()))
             Set_Children(y, y.getMiddle(), y.getRight(), null);
