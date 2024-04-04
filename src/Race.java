@@ -17,7 +17,9 @@ public class Race {
         return IDtree.getRoot();
     }
     public void addRunner(RunnerID id)  {
-        RunnerTree<RunnerID> runner = getRunner(id);
+        RunnerTree<RunnerID> runner = new RunnerTree<>(id);
+        if(IDtree.Search(null, runner) != null)
+            throw new IllegalArgumentException();
         IDtree.Insert(runner);
         minTree.Insert(new minRunner(runner));
         avgTree.Insert(new avgRunner(runner));
@@ -74,7 +76,7 @@ public class Race {
         return fastedRunnerAvg;
     }
 
-    public RunnerID getfastedRunnerMin()
+    public RunnerID getFastestRunnerMin()
     {
         return fastedRunnerMin;
     }
