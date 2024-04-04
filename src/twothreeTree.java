@@ -200,6 +200,17 @@ public abstract class twothreeTree<T extends RunnerID> {
         }
     }
 
+    public node<T> Minimum(){//fix later
+        node<T> x = this.root;
+        while(!(x.getLeft() instanceof leaf))//x is not a leaf
+            x = x.getLeft();
+
+        x = x.getMiddle();
+        if(!(x.getKey() instanceof Sentinal))
+            return x;
+        throw new IllegalArgumentException();
+    }
+
     public int Rank(node<T> x){
         int rank = 1;
         internalNode<T> y = (internalNode<T>) x.getp();
@@ -212,17 +223,6 @@ public abstract class twothreeTree<T extends RunnerID> {
             y = (internalNode<T>) y.getp();
         }
         return rank;
-    }
-
-    public node<T> Minimum(){//fix later
-        node<T> x = this.root;
-        while(!(x.getLeft() instanceof leaf))//x is not a leaf
-            x = x.getLeft();
-
-        x = x.getMiddle();
-        if(!(x.getKey() instanceof Sentinal))
-            return x;
-        throw new IllegalArgumentException();
     }
 
     public node<T> Successor(node<T> x){//fix later

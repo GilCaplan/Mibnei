@@ -1,4 +1,5 @@
 import java.text.DecimalFormat;
+import java.util.HashSet;
 import java.util.Random;
 
 class RunnerIDInt extends RunnerID{
@@ -28,19 +29,26 @@ public class Main {
 
         Race race = new Race();
 
-        int[] runners = new int[]{1,3,5,7, 2, 9};
-        for (int j : runners) {
-            race.addRunner(new RunnerIDInt(j));
+        HashSet<Integer> runnerSet = new HashSet<>();
+        Random random = new Random(66);
+
+        while (runnerSet.size() < 20) { // Adjust the size as per your requirement
+            int randomNumber = random.nextInt(100000) + 1; // Generating random integers from 1 to 99
+            runnerSet.add(randomNumber);
+        }
+
+        for (int j : runnerSet) {
+//            System.out.println(j); // Printing for demonstration
+             race.addRunner(new RunnerIDInt(j));
         }
 
         printTree(race.getRoot(),"",true);
-        Random random = new Random(66);
         DecimalFormat df = new DecimalFormat("#.##");
 
-        int r = 10;
+        int r = 1000;
         float[] run_times = new float[r];
         RunnerIDInt id;
-        for (int j : runners) {
+        for (int j : runnerSet) {
             for (int i = 0; i < r; i++) {
                 run_times[i] = Float.parseFloat(df.format(random.nextFloat() * 98 + 1)); // generates a random double between 1 and 99
             }
@@ -56,8 +64,10 @@ public class Main {
 
         System.out.println("The runner with the smallest minimum time is "+ race.getFastestRunnerMin());
         System.out.println("The runner with the smallest minimum time is "+ race.getFastestRunnerAvg());
-        System.out.println(race.getRankMin(new RunnerIDInt(2)));
-        System.out.println(race.getRankAvg(new RunnerIDInt(5)));
+        System.out.println("Runners rank:");
+        for(int i : runnerSet)
+            System.out.print("("+i+" - "+race.getRankMin(new RunnerIDInt(i))+ ") ");
+
     }
 
     public static void printTree(node<RunnerID> root, String prefix, boolean isTail) {
