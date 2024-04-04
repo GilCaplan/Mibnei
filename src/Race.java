@@ -4,6 +4,7 @@ public class Race {
     private twothreeTree<RunnerID> minTree;
     private twothreeTree<RunnerID> avgTree;
 
+    private RunnerID fastedRunnerMin, fastedRunnerAvg;
     public Race() {
         init();
     }
@@ -16,70 +17,66 @@ public class Race {
         return IDtree.getRoot();
     }
     public void addRunner(RunnerID id)  {
-        RunnerTree<RunnerID> runner = new RunnerTree<>(id);
-        if(IDtree.Search(null, runner) != null)
-            throw new IllegalArgumentException();
+        RunnerTree<RunnerID> runner = getRunner(id);
         IDtree.Insert(runner);
         minTree.Insert(new minRunner(runner));
         avgTree.Insert(new avgRunner(runner));
+        fastedRunnerAvg = avgTree.Minimum().getKey();
+        fastedRunnerMin = minTree.Minimum().getKey();
     }
 
-    public void removeRunner(RunnerID id)//* need to fix, how to delete from min, avg Tree
+    public void removeRunner(RunnerID id)
     {
-        RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
+        RunnerTree<RunnerID> runner = getRunner(id);
         IDtree.Delete(new internalNode<>(id));
         minTree.Delete(new internalNode<>(id, runner.getMinTime()));
         avgTree.Delete(new internalNode<>(id, runner.getAvgRun()));
+        try {
+            fastedRunnerAvg = avgTree.Minimum().getKey();
+            fastedRunnerMin = minTree.Minimum().getKey();
+        }
+        catch(IllegalArgumentException ae){}
     }
 
     public void addRunToRunner(RunnerID id, float time) {
-        //we added the runner object as a shallow copy so we need to delete and then re-add it
-        //this will hold to the log(n) since each action is log(n) in parallel
-        RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
+        RunnerTree<RunnerID> runner = getRunner(id);
         runner.Insert(new leaf<>(new myFloat(time)));
         fixMinAvgRuns(id, runner);
     }
 
     public void removeRunFromRunner(RunnerID id, float time) {
-        RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
+        RunnerTree<RunnerID> runner = getRunner(id);
         runner.Delete(new internalNode<>(new myFloat(time)));
         fixMinAvgRuns(id, runner);
     }
 
-    public RunnerID getFastestRunnerAvg()
-    {
-        return avgTree.Minimum().getKey();
-    }
-
-    public RunnerID getFastestRunnerMin()
-    {
-        return minTree.Minimum().getKey();
-    }
 
     public float getMinRun(RunnerID id)
     {
-        RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
-        if(runner == null)
-            throw new IllegalArgumentException();
-        return runner.getMinTime().getF();
+        return getRunner(id).getMinTime().getF();
     }
     public float getAvgRun(RunnerID id){
-        RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
-        if(runner == null)
-            throw new IllegalArgumentException();
-        return runner.getAvgRun().getF();
+        return getRunner(id).getAvgRun().getF();
     }
 
     public int getRankAvg(RunnerID id)
     {
-        RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
-        return avgTree.Rank(runner);
+        return avgTree.Rank(getRunner(id));
     }
 
     public int getRankMin(RunnerID id)
     {
-        RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
-        return minTree.Rank(runner);
+        return minTree.Rank(getRunner(id));
+    }
+
+    public RunnerID getFastestRunnerAvg()
+    {
+        return fastedRunnerAvg;
+    }
+
+    public RunnerID getfastedRunnerMin()
+    {
+        return fastedRunnerMin;
     }
 
     public void fixMinAvgRuns(RunnerID id, RunnerTree<RunnerID> runner) {
@@ -89,5 +86,14 @@ public class Race {
         runner.setPrevAvgTime(runner.getAvgRun());
         minTree.Insert(new minRunner(runner));
         avgTree.Insert(new avgRunner(runner));
+        fastedRunnerAvg = avgTree.Minimum().getKey();
+        fastedRunnerMin = minTree.Minimum().getKey();
+    }
+
+    public RunnerTree<RunnerID> getRunner(RunnerID id){
+        RunnerTree<RunnerID> runner = (RunnerTree<RunnerID>) IDtree.Search(null, new leaf<>(id));
+        if(runner == null)
+            throw new IllegalArgumentException();
+        return runner;
     }
 }

@@ -1,4 +1,4 @@
-public abstract class twothreeTree<T extends RunnerID> {
+public class twothreeTree<T extends RunnerID> {
     private node<T> root;
     public twothreeTree(){
         Init();
