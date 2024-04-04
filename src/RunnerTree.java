@@ -45,10 +45,6 @@ public class RunnerTree<T extends RunnerID> extends leaf<T> {
         sumTime -= z.getKey().getF();
     }
 
-    public twothreeTree<myFloat> getRuns() {
-        return runs;
-    }
-
     public myFloat getMinTime() {
         return minTime;
     }
@@ -59,25 +55,5 @@ public class RunnerTree<T extends RunnerID> extends leaf<T> {
         if(len < 1)
             return new myFloat(Float.MAX_VALUE);
         return avgTime;
-    }
-
-    public myFloat updateAvgRun(){return this.avgTime = new myFloat(sumTime / len);}
-
-    public RunnerID getId() {
-        return id;
-    }
-
-    public void printTree(node<T> root, String prefix, boolean isTail) {
-        if (root instanceof internalNode<T>) {
-//            System.out.println(prefix + (isTail ? "└── InnerNode with key: " : "├── InnerNode with key: ") + root.key+", size: "+root.getSize());
-            System.out.println(prefix + (isTail ? "└──" : "├── "));
-            internalNode<RunnerID> innerNode = (internalNode<RunnerID>) root;
-            printTree((node<T>) innerNode.getLeft(), prefix + (isTail ? "    " : "│   "), false);
-            printTree((node<T>) innerNode.getMiddle(), prefix + (isTail ? "    " : "│   "), false);
-            printTree((node<T>) innerNode.getRight(), prefix + (isTail ? "    " : "│   "), true);
-        } else if (root instanceof leaf<T>) {
-//            System.out.println(prefix + (isTail ? "└── Leaf with key: " : "├── Leaf with key: ") + root.key+", size: "+root.getSize());
-            System.out.println(prefix + (isTail ? "└── : " : "├── : ") + root.getKey());
-        }
     }
 }

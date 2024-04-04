@@ -1,4 +1,4 @@
-public class minRunner extends leaf<RunnerID> implements Key<RunnerID>{
+public class minRunner extends leaf<RunnerID>{
     public minRunner(RunnerTree<RunnerID> runner) {
         super(runner.getKey(), runner.getMinTime());
     }

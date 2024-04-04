@@ -1,4 +1,4 @@
-public abstract class node<T extends RunnerID> implements Key<T>{
+public abstract class node<T extends RunnerID>{
     private node<T> p;
     private node<T> left;
     private node<T> middle;
@@ -71,21 +71,17 @@ public abstract class node<T extends RunnerID> implements Key<T>{
     }
 
 
-    @Override
     public T getKey() {
         return this.key;
     }
-    @Override
     public myFloat getSecondaryKey() {
         return this.skey;
     }
 
-    @Override
     public boolean isSmaller(T other) {//don't call
         return this.getKey().isSmaller(other);
     }
 
-    @Override
     public void setKey(T k) {
         this.key = k;
     }

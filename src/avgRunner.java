@@ -1,4 +1,4 @@
-public class avgRunner extends leaf<RunnerID> implements Key<RunnerID>{
+public class avgRunner extends leaf<RunnerID>{
     public avgRunner(RunnerTree<RunnerID> runner) {
         super(runner.getKey(), runner.getAvgRun());
     }
