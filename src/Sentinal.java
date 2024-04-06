@@ -1,5 +1,7 @@
 public class Sentinal extends RunnerID{
     private final boolean flag;
+
+
     public Sentinal(String flag){
         this.flag = flag.equals("inf");
     }

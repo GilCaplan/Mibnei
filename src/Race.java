@@ -63,12 +63,16 @@ public class Race {
 
     public int getRankAvg(RunnerID id)
     {
-        return avgTree.Rank(getRunner(id));
+        RunnerTree<RunnerID> r = getRunner(id);
+        avgRunner runner = (avgRunner) avgTree.Search(null, new avgRunner(r));
+        return avgTree.Rank(runner);
     }
 
     public int getRankMin(RunnerID id)
     {
-        return minTree.Rank(getRunner(id));
+        RunnerTree<RunnerID> r = getRunner(id);
+        avgRunner runner = (avgRunner) minTree.Search(null, new minRunner(r));
+        return minTree.Rank(runner);
     }
 
     public RunnerID getFastestRunnerAvg()

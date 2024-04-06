@@ -124,6 +124,8 @@ public class twothreeTree<T extends RunnerID> {
     }
 
     private void UpdateSize(node<T> x) {
+        if(x == null || x instanceof leaf)
+            return;
         int r = x.getLeft() != null? x.getLeft().getSize():0;
         r += x.getMiddle() != null? x.getMiddle().getSize():0;
         r += x.getRight() != null? x.getRight().getSize():0;
@@ -199,8 +201,7 @@ public class twothreeTree<T extends RunnerID> {
                 Update_Key(y);
                 y = (internalNode<T>) y.getp();
             }
-            if (y != null)
-                UpdateSize(y);
+            UpdateSize(y);
         }
     }
 

@@ -39,7 +39,7 @@ public abstract class node<T extends RunnerID>{
     public String toString(){
         if(this.getSecondaryKey() == null || this.getSecondaryKey().getF() == -1)
             return this.getKey().toString();
-        return this.getKey().toString()+", "+this.getSecondaryKey().toString()+", "+this.getSize();
+        return "("+this.getKey().toString()+", "+this.getSecondaryKey().toString()+", "+this.getSize()+")";
     }
 
 
