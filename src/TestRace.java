@@ -2,21 +2,21 @@ public class TestRace
 {
     public static void main(String[] args) {
         System.out.println("starting to test:");
-        test1();
-        test2();
-        test3();
-        test4();
-        test5();
-        testAddRunner();
-        testRemoveRunner();
-        testAddRunToRunner();
-        testRemoveRunFromRunner();
-        testGetMinRun();
-        testGetAvgRun();
-        testGetFastestRunnerAvg();
-        testGetFastestRunnerMin();
+//        test1();
+//        test2();
+//        test3();
+//        test4();
+//        test5();
+//        testAddRunner();
+//        testRemoveRunner();
+//        testAddRunToRunner();
+//        testRemoveRunFromRunner();
+//        testGetMinRun();
+//        testGetAvgRun();
+//        testGetFastestRunnerAvg();
+//        testGetFastestRunnerMin();
         testGetRankAvg();
-        testGetRankMin();
+//        testGetRankMin();
         System.out.println("finished testing");
 
     }
@@ -62,16 +62,29 @@ public class TestRace
         race.addRunner(id1);
         RunnerID id2 = new RunnerIDInt(2);
         race.addRunner(id2);
+
+        RunnerID id3 = new RunnerIDInt(3);
+        race.addRunner(id3);
+        RunnerID id4 = new RunnerIDInt(4);
+        race.addRunner(id4);
         System.out.println("value: " + race.getRankAvg(id1));
         System.out.println("value: " + race.getRankAvg(id2));
 
+        System.out.println();
+        System.out.println("blabla");
         System.out.println("--- test 4: with runs ---");
-        race.addRunToRunner(id2, 15);
+        race.addRunToRunner(id1, 10);
+        race.addRunToRunner(id1, 5);
+        race.addRunToRunner(id1, 15);
+        System.out.println(" rank value of 1: " + race.getRankAvg(id1));
+        System.out.println("rank value of 2: " + race.getRankAvg(id2));
+        race.addRunToRunner(id2, 1);
+        race.addRunToRunner(id2, 2);
+        race.addRunToRunner(id2, 3);
         System.out.println("value: " + race.getRankAvg(id1));
         System.out.println("value: " + race.getRankAvg(id2));
-        race.addRunToRunner(id1, 116);
-        System.out.println("value: " + race.getRankAvg(id1));
-        System.out.println("value: " + race.getRankAvg(id2));
+        System.out.println("value: " + race.getRankAvg(id3));
+        System.out.println("value: " + race.getRankAvg(id4));
     }
 
     public static void testGetFastestRunnerMin() {

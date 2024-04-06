@@ -93,12 +93,6 @@ public class twothreeTree<T extends RunnerID> {
         return y;
     }
 
-    public void UpdateSize(internalNode<T> x){//fix
-        int s = x.getLeft().getSize() + x.getMiddle().getSize();
-        if(x.getRight() != null)
-            s += x.getRight().getSize();
-        x.setSize(s);
-    }
 
     public void Insert(node<T> z) {
         z.setSize(1);
@@ -118,14 +112,22 @@ public class twothreeTree<T extends RunnerID> {
                 z = Insert_And_Split(x, z);
             else {
                 Update_Key(x);
-                UpdateSize(x);
             }
+            UpdateSize(x);
         }
         if(z != null){
             internalNode<T> w = new internalNode<>(null);//check
             Set_Children(w, x, z, null);
             this.root = w;
+            UpdateSize(root);
         }
+    }
+
+    private void UpdateSize(node<T> x) {
+        int r = x.getLeft() != null? x.getLeft().getSize():0;
+        r += x.getMiddle() != null? x.getMiddle().getSize():0;
+        r += x.getRight() != null? x.getRight().getSize():0;
+        x.setSize(r);
     }
 
     public node<T> Borrow_Or_Merge(internalNode<T> y){
@@ -182,6 +184,7 @@ public class twothreeTree<T extends RunnerID> {
         else {
             Set_Children(y, y.getLeft(), y.getMiddle(), null);
         }
+        UpdateSize(y);
         while(y != null){
             if(y.getMiddle() == null){
                 if(y != this.root)
@@ -194,9 +197,10 @@ public class twothreeTree<T extends RunnerID> {
             }
             else{
                 Update_Key(y);
-                UpdateSize(y);
                 y = (internalNode<T>) y.getp();
             }
+            if (y != null)
+                UpdateSize(y);
         }
     }
 
@@ -264,5 +268,22 @@ public class twothreeTree<T extends RunnerID> {
         }
         return x.getKey().toString().equals(y.getKey().toString());
     }
+
+    public void printTree(node<T> root){
+        printTree(root, "", true);
+    }
+    public void printTree(node<T> root, String prefix, boolean isTail) {
+        if (root instanceof internalNode<T>) {
+            internalNode<T> innerNode = (internalNode<T>) root;
+            System.out.println(prefix + (isTail ? "└──" : "├── "));
+            System.out.println(prefix + innerNode);
+            printTree(innerNode.getLeft(), prefix + (isTail ? "    " : "│   "), false);
+            printTree(innerNode.getMiddle(), prefix + (isTail ? "    " : "│   "), false);
+            printTree(innerNode.getRight(), prefix + (isTail ? "    " : "│   "), true);
+        } else if (root instanceof leaf<T>) {
+            System.out.println(prefix + (isTail ? "└── : " : "├── : ") + root);
+        }
+    }
 }
+
 
