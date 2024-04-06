@@ -71,7 +71,7 @@ public class Race {
     public int getRankMin(RunnerID id)
     {
         RunnerTree<RunnerID> r = getRunner(id);
-        avgRunner runner = (avgRunner) minTree.Search(null, new minRunner(r));
+        minRunner runner = (minRunner) minTree.Search(null, new minRunner(r));
         return minTree.Rank(runner);
     }
 

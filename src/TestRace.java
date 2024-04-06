@@ -15,8 +15,8 @@ public class TestRace
 //        testGetAvgRun();
 //        testGetFastestRunnerAvg();
 //        testGetFastestRunnerMin();
-        testGetRankAvg();
-//        testGetRankMin();
+//        testGetRankAvg();
+        testGetRankMin();
         System.out.println("finished testing");
 
     }
@@ -34,19 +34,30 @@ public class TestRace
         race.addRunner(id1);
         RunnerID id2 = new RunnerIDInt(2);
         race.addRunner(id2);
+        RunnerID id3 = new RunnerIDInt(3);
+        race.addRunner(id3);
+        RunnerID id4 = new RunnerIDInt(4);
+        race.addRunner(id4);
         System.out.println("value: " + race.getRankMin(id1));
         System.out.println("value: " + race.getRankMin(id2));
 
         System.out.println("--- test 4: with runs ---");
+        System.out.println("real answer: 2,1");
         race.addRunToRunner(id2, 15);
         System.out.println("value: " + race.getRankMin(id1));
         System.out.println("value: " + race.getRankMin(id2));
+        System.out.println("real answer: 2,1");
         race.addRunToRunner(id1, 16);
         System.out.println("value: " + race.getRankMin(id1));
         System.out.println("value: " + race.getRankMin(id2));
+        System.out.println("real answer: 1,3,4,2");
         race.addRunToRunner(id1, 1);
+        race.addRunToRunner(id3, 20);
+        race.addRunToRunner(id4, 7);
         System.out.println("value: " + race.getRankMin(id1));
         System.out.println("value: " + race.getRankMin(id2));
+        System.out.println("value: " + race.getRankMin(id3));
+        System.out.println("value: " + race.getRankMin(id4));
     }
     public static void testGetRankAvg() {
         Race race = new Race();
@@ -76,11 +87,20 @@ public class TestRace
         race.addRunToRunner(id1, 10);
         race.addRunToRunner(id1, 5);
         race.addRunToRunner(id1, 15);
+        System.out.println("real answer is: 1,2,3,4");
         System.out.println(" rank value of 1: " + race.getRankAvg(id1));
         System.out.println("rank value of 2: " + race.getRankAvg(id2));
         race.addRunToRunner(id2, 1);
         race.addRunToRunner(id2, 2);
         race.addRunToRunner(id2, 3);
+        System.out.println("real answer is: 2,1,3,4");
+        System.out.println("value: " + race.getRankAvg(id1));
+        System.out.println("value: " + race.getRankAvg(id2));
+        System.out.println("value: " + race.getRankAvg(id3));
+        System.out.println("value: " + race.getRankAvg(id4));
+        race.addRunToRunner(id3, 9);
+        race.addRunToRunner(id4, 3);
+        System.out.println("real answer is: 4,1,3,2");
         System.out.println("value: " + race.getRankAvg(id1));
         System.out.println("value: " + race.getRankAvg(id2));
         System.out.println("value: " + race.getRankAvg(id3));
