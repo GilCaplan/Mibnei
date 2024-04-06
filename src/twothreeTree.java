@@ -264,20 +264,5 @@ public class twothreeTree<T extends RunnerID> {
         }
         return x.getKey().toString().equals(y.getKey().toString());
     }
-    public void printTree(node<T> root){
-        printTree(root, "", true);
-    }
-    public void printTree(node<T> root, String prefix, boolean isTail) {
-        if (root instanceof internalNode<T>) {
-            internalNode<T> innerNode = (internalNode<T>) root;
-            System.out.println(prefix + (isTail ? "└──" : "├── "));
-            System.out.println(prefix + innerNode);
-            printTree(innerNode.getLeft(), prefix + (isTail ? "    " : "│   "), false);
-            printTree(innerNode.getMiddle(), prefix + (isTail ? "    " : "│   "), false);
-            printTree(innerNode.getRight(), prefix + (isTail ? "    " : "│   "), true);
-        } else if (root instanceof leaf<T>) {
-            System.out.println(prefix + (isTail ? "└── : " : "├── : ") + root);
-        }
-    }
 }
 

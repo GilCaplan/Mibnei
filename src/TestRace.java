@@ -165,8 +165,13 @@ public class TestRace
         race.addRunToRunner(id, 20);
         race.addRunToRunner(id, 15);
         race.addRunToRunner(id, 16);
-        race.addRunToRunner(id, 20);
-        race.addRunToRunner(id, 15);
+        try {
+            race.addRunToRunner(id, 20);
+            race.addRunToRunner(id, 15);
+        }
+        catch (IllegalArgumentException ae){
+            System.out.println("caught");
+        }
         System.out.println("value: " + race.getMinRun(id));
     }
 
@@ -190,11 +195,21 @@ public class TestRace
 
         System.out.println("--- test 2: removing non unique runs ---");
         race.addRunToRunner(id, 15);
-        race.addRunToRunner(id, 15);
+        try {
+            race.addRunToRunner(id, 15);
+        }
+        catch (IllegalArgumentException ae){
+            System.out.println("caught");
+        }
 //        System.out.println("Number of runs: " + race.getRunnerGivenRunnerId(id).getAmountOfRuns());
         race.removeRunFromRunner(id, 15);
 //        System.out.println("Number of runs: " + race.getRunnerGivenRunnerId(id).getAmountOfRuns());
-        race.removeRunFromRunner(id, 15);
+        try {
+            race.removeRunFromRunner(id, 15);
+        }
+        catch (IllegalArgumentException ae){
+            System.out.println("caught");
+        }
 //        System.out.println("Number of runs: " + race.getRunnerGivenRunnerId(id).getAmountOfRuns());
 
         System.out.println("--- test 3: remove a run that does not exist ---");
@@ -216,7 +231,12 @@ public class TestRace
 //        Main.printTree(race.getMinTree());
 //        Main.printTree(race.getAvgTree());
         race.addRunToRunner(id, 15);
-        race.addRunToRunner(id, 15);
+        try {
+            race.addRunToRunner(id, 15);
+        }
+        catch (IllegalArgumentException ae){
+            System.out.println("caught");
+        }
         race.addRunToRunner(id, 10);
         race.addRunner(id2);
 //        Main.printTree(race.getMinTree());
@@ -237,7 +257,12 @@ public class TestRace
         race.addRunToRunner(id1, 15);
         race.addRunToRunner(id1, 20);
         race.addRunToRunner(id1, 16);
-        race.addRunToRunner(id1, 15);
+        try {
+            race.addRunToRunner(id1, 15);
+        }
+        catch (IllegalArgumentException ae){
+            System.out.println("caught");
+        }
 //        Main.printTree(race.getRunnerGivenRunnerId(id1).getRuns());
 //        System.out.println("Number of runs: " + race.getRunnerGivenRunnerId(id1).getAmountOfRuns());
 
@@ -369,10 +394,16 @@ public class TestRace
         race.addRunToRunner(id1, 1);
         race.addRunToRunner(id1, 9);
 
+
         race.addRunToRunner(id2, 4);
-        race.addRunToRunner(id2, 4);
-        race.addRunToRunner(id2, 4);
-        race.addRunToRunner(id2, 4);
+        try {
+            race.addRunToRunner(id2, 4);
+            race.addRunToRunner(id2, 4);
+            race.addRunToRunner(id2, 4);
+        }
+        catch (IllegalArgumentException ae){
+            System.out.println("caught");
+        }
 
 
 //        //Main.printTree(race.getIdTree());
@@ -387,9 +418,14 @@ public class TestRace
         }
 
         race.removeRunFromRunner(id2, 4);
-        race.removeRunFromRunner(id2, 4);
-        race.removeRunFromRunner(id2, 4);
-        race.removeRunFromRunner(id2, 4);
+        try {
+            race.removeRunFromRunner(id2, 4);
+            race.removeRunFromRunner(id2, 4);
+            race.removeRunFromRunner(id2, 4);
+        }
+        catch (IllegalArgumentException ae){
+            System.out.println("caught");
+        }
 
 
     }

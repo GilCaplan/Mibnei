@@ -27,7 +27,7 @@ public class RunnerTree<T extends RunnerID> extends leaf<T> {
         this.prevAvgTime = new myFloat(Float.MAX_VALUE);
     }
     public void Insert(node<myFloat> z){
-        if (id == null || z.getKey().getF() < 0) {
+        if (id == null || z.getKey().getF() < 0 || this.runs.Search(null, z) != null) {
             throw new IllegalArgumentException();
         }
         this.runs.Insert(z);

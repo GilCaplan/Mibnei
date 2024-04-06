@@ -1,6 +1,7 @@
 import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 class RunnerIDInt extends RunnerID{
     private int id;
@@ -46,15 +47,19 @@ public class Main {
         DecimalFormat df = new DecimalFormat("#.##");
 
         int r = 1000;
-        float[] run_times = new float[r];
-        RunnerIDInt id;
+        Set<Float> run_times = new HashSet<>();
+
         for (int j : runnerSet) {
             for (int i = 0; i < r; i++) {
-                run_times[i] = Float.parseFloat(df.format(random.nextFloat() * 98 + 1)); // generates a random double between 1 and 99
+                float time;
+                do {
+                    time = Float.parseFloat(df.format(random.nextFloat() * 1000 + 1)); // generates a random double between 1 and 99
+                } while (!run_times.add(time)); // Regenerate if time is not distinct
             }
-            id = new RunnerIDInt(j);
-            for(float time: run_times)
+            RunnerID id = new RunnerIDInt(j);
+            for (float time : run_times)
                 race.addRunToRunner(id, time);
+
             System.out.println();
             System.out.println("The min running time of " + id + " is " + race.getMinRun(id));
             System.out.println("The avg running time of " + id + " is " + race.getAvgRun(id));
@@ -67,6 +72,7 @@ public class Main {
         System.out.println("Runners rank:");
         for(int i : runnerSet)
             System.out.print("("+i+" - "+race.getRankMin(new RunnerIDInt(i))+ ") ");
+
 
     }
 
