@@ -47,9 +47,10 @@ public class Main {
         DecimalFormat df = new DecimalFormat("#.##");
 
         int r = 1000;
-        Set<Float> run_times = new HashSet<>();
+        Set<Float> run_times;
 
         for (int j : runnerSet) {
+            run_times = new HashSet<>();
             for (int i = 0; i < r; i++) {
                 float time;
                 do {
@@ -68,7 +69,7 @@ public class Main {
         }
 
         System.out.println("The runner with the smallest minimum time is "+ race.getFastestRunnerMin());
-        System.out.println("The runner with the smallest minimum time is "+ race.getFastestRunnerAvg());
+        System.out.println("The runner with the smallest average time is "+ race.getFastestRunnerAvg());
         System.out.println("Runners rank:");
         for(int i : runnerSet)
             System.out.print("("+i+" - "+race.getRankMin(new RunnerIDInt(i))+ ") ");

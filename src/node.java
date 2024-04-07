@@ -78,13 +78,7 @@ public abstract class node<T extends RunnerID>{
         return this.skey;
     }
 
-    public boolean isSmaller(T other) {//don't call
-        return this.getKey().isSmaller(other);
-    }
 
-    public void setKey(T k) {
-        this.key = k;
-    }
     public void setKey(T k, myFloat t) {
         this.key = k;
         this.skey = t;

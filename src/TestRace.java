@@ -2,20 +2,20 @@ public class TestRace
 {
     public static void main(String[] args) {
         System.out.println("starting to test:");
-//        test1();
-//        test2();
-//        test3();
-//        test4();
-//        test5();
-//        testAddRunner();
-//        testRemoveRunner();
-//        testAddRunToRunner();
-//        testRemoveRunFromRunner();
-//        testGetMinRun();
-//        testGetAvgRun();
-//        testGetFastestRunnerAvg();
-//        testGetFastestRunnerMin();
-//        testGetRankAvg();
+        test1();
+        test2();
+        test3();
+        test4();
+        test5();
+        testAddRunner();
+        testRemoveRunner();
+        testAddRunToRunner();
+        testRemoveRunFromRunner();
+        testGetMinRun();
+        testGetAvgRun();
+        testGetFastestRunnerAvg();
+        testGetFastestRunnerMin();
+        testGetRankAvg();
         testGetRankMin();
         System.out.println("finished testing");
 
@@ -287,6 +287,10 @@ public class TestRace
         RunnerID id1 = new RunnerIDInt(1);
         race.addRunner(id1);
         //Main.printTree(race.getIdTree());
+
+        race.addRunner(new RunnerIDInt(12));
+        race.addRunToRunner(new RunnerIDInt(12), 15);
+        race.removeRunFromRunner(new RunnerIDInt(12), 15);
         race.addRunToRunner(id1, 15);
         race.addRunToRunner(id1, 20);
         race.addRunToRunner(id1, 16);

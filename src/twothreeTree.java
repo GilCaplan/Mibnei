@@ -205,7 +205,7 @@ public class twothreeTree<T extends RunnerID> {
         }
     }
 
-    public node<T> Minimum(){//fix later
+    public node<T> Minimum(){
         node<T> x = this.root;
         while(!(x.getLeft() instanceof leaf))//x is not a leaf
             x = x.getLeft();
