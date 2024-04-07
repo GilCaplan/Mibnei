@@ -41,17 +41,13 @@ public class RunnerTree<T extends RunnerID> extends leaf<T> {
     }
     public void Delete(node<myFloat> z) {
         this.runs.Delete((internalNode<myFloat>) z);
+        if (len > 0)
+            this.minTime = this.runs.Minimum().getKey();
+        else
+            this.minTime = z.getKey();
         len--;
         sumTime -= z.getKey().getF();
         avgTime = new myFloat(sumTime / len);
-    }
-
-    public void setMinTime(myFloat minTime) {
-        this.minTime = minTime;
-    }
-
-    public void setAvgTime(myFloat avgTime) {
-        this.avgTime = avgTime;
     }
 
     public myFloat getMinTime() {
