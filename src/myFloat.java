@@ -8,14 +8,6 @@ public class myFloat extends RunnerID {
         return key;
     }
 
-    public myFloat getKey() {
-        return new myFloat(key);
-    }
-
-    public void setKey(myFloat k) {
-        this.key = k.key;
-    }
-
     @Override
     public boolean isSmaller(RunnerID other) {
         return this.key < ((myFloat)other).key;
