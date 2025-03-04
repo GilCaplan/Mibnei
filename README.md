@@ -1,5 +1,9 @@
 # Data Structures and Algorithms
 
+HW contains files of my solutions to the hw.
+The homework is theoretical. The official solution is also included in addition to my solutions.
+src contains the code to the programming homework (mini-project), the instructions for that is given. It's building a dynamic 2-3 tree for runners.
+
 Development and analysis of algorithms and data structures. **Topics**:
 - Fundamental methods for developing algorithms
 - Sorting algorithms and lower bounds on the running time of comparison-based sort
